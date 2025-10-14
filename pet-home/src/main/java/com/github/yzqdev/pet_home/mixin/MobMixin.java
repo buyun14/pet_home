@@ -27,7 +27,7 @@ public abstract class MobMixin extends LivingEntity {
 
 
     @Inject(
-            method = {"Lnet/minecraft/world/entity/Mob;pickUpItem(Lnet/minecraft/world/entity/item/ItemEntity;)V"},
+            method = {"pickUpItem(Lnet/minecraft/world/entity/item/ItemEntity;)V"},
             remap = true,
             at = @At(value = "HEAD"),
             cancellable = true
