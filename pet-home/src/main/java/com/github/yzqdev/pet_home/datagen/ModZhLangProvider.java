@@ -227,5 +227,8 @@ public class ModZhLangProvider extends LanguageProvider {
         add( LangDefinition.conf("mobcatcherBlacklist"), "生物球可捕捉黑名单");
         add( LangDefinition.conf("mobcatcherBlacklist.tooltip"), "生物球不能捕捉的生物");
 
+
+        add("pet_home.configuration.tough_loot_chance.tooltip", "稳固附魔书在废弃矿井宝箱中的概率");
+        add("pet_home.configuration.tough_loot_chance", "稳固附魔书概率");
     }
 }

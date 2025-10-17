@@ -68,56 +68,46 @@ public class PetshopStructurePoolElement extends LegacySinglePoolElement {
             initializedMobLists = true;
         }
         switch (contents) {
-            case "petshop_water":
+            case "petshop_water" -> {
                 BlockState state = Blocks.WATER.defaultBlockState();
                 float f = random.nextFloat();
                 if (f < 0.5F) {
                     state = Blocks.SEAGRASS.defaultBlockState();
                 } else if (f < 0.75F) {
-                    Block coralBlock;
-                    switch (random.nextInt(5)) {
-                        case 1:
-                            coralBlock = Blocks.TUBE_CORAL;
-                            break;
-                        case 2:
-                            coralBlock = Blocks.BRAIN_CORAL;
-                            break;
-                        case 3:
-                            coralBlock = Blocks.BUBBLE_CORAL;
-                            break;
-                        case 4:
-                            coralBlock = Blocks.FIRE_CORAL;
-                            break;
-                        default:
-                            coralBlock = Blocks.HORN_CORAL;
-                            break;
-                    }
+                    Block coralBlock = switch (random.nextInt(5)) {
+                        case 1 -> Blocks.TUBE_CORAL;
+                        case 2 -> Blocks.BRAIN_CORAL;
+                        case 3 -> Blocks.BUBBLE_CORAL;
+                        case 4 -> Blocks.FIRE_CORAL;
+                        default -> Blocks.HORN_CORAL;
+                    };
                     state = coralBlock.defaultBlockState().setValue(BaseCoralPlantTypeBlock.WATERLOGGED, true);
                 }
                 spawnAnimalsAt(levelAccessor, structureBlockInfo.pos(), 2, random, fishtankMobs);
                 levelAccessor.setBlock(structureBlockInfo.pos(), state, 2);
-                break;
-            case "petshop_chest":
+            }
+            case "petshop_chest" -> {
                 levelAccessor.setBlock(structureBlockInfo.pos(), Blocks.AIR.defaultBlockState(), 2);
 
                 RandomizableContainer.setBlockEntityLootTable(levelAccessor, random, structureBlockInfo.pos().below(), LootTableGen.PET_LOOT_TABLE);
-                break;
-            case "petshop_cage_0"://wolf, rabbit or cat
+            }
+            case "petshop_cage_0" -> {
                 spawnAnimalsAt(levelAccessor, structureBlockInfo.pos(), 1 + random.nextInt(2), random, cage0Mobs);
                 levelAccessor.setBlock(structureBlockInfo.pos(), Blocks.AIR.defaultBlockState(), 4);
-                break;
-            case "petshop_cage_1"://desert terrarium
+            }
+            case "petshop_cage_1" -> {
                 spawnAnimalsAt(levelAccessor, structureBlockInfo.pos(), 2 + random.nextInt(2), random, cage1Mobs);
                 levelAccessor.setBlock(structureBlockInfo.pos(), Blocks.AIR.defaultBlockState(), 2);
-                break;
-            case "petshop_cage_2"://ice terrarium
+            }
+            case "petshop_cage_2" -> {
                 spawnAnimalsAt(levelAccessor, structureBlockInfo.pos(), 1 + random.nextInt(2), random, cage2Mobs);
                 levelAccessor.setBlock(structureBlockInfo.pos(), Blocks.AIR.defaultBlockState(), 2);
-                break;
-            case "petshop_cage_3"://parrot
+            }
+            case "petshop_cage_3" -> {
                 spawnAnimalsAt(levelAccessor, structureBlockInfo.pos(), 1, random, cage3Mobs);
                 levelAccessor.setBlock(structureBlockInfo.pos(), Blocks.AIR.defaultBlockState(), 2);
-                break;
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + contents);
         }
     }
 

@@ -226,5 +226,8 @@ public class ModEnLangProvider extends LanguageProvider {
         add(LangDefinition.conf("mobcatcherOnlyTamableAnimal.tooltip"), "Disable to allow capturing any mob");
         add(LangDefinition.conf("mobcatcherBlacklist"), "Mob Catcher prohibited list");
         add(LangDefinition.conf("mobcatcherBlacklist.tooltip"), "Mobs that are blocked from being captured");
+
+        add("pet_home.configuration.tough_loot_chance.tooltip", "Probability of Tough enchantment book appearing in Abandoned Mineshaft chests");
+        add("pet_home.configuration.tough_loot_chance", "Tough Enchantment Chance");
     }
 }

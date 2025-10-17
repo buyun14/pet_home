@@ -83,6 +83,13 @@ public class PHLootModifier extends LootModifier {
                     generatedLoot.add(enchantedBook(ModEnchantments.PARALYSIS, context.getRandom(), context));
                 }
             }
+            case 8->{
+                if (context.getRandom().nextFloat() < PetHomeConfig.toughLootChance) {
+                    generatedLoot.add(enchantedBook(ModEnchantments.TOUGH, context.getRandom(), context));
+                }
+            }
+
+            default -> throw new IllegalStateException("Unexpected value: " + lootType);
         }
         return generatedLoot;
     }

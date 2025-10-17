@@ -38,7 +38,9 @@ public class GlobalLootModifier extends GlobalLootModifierProvider {
         add("share_enchanted_book", new PHLootModifier(new LootItemCondition[]{new LootTableIdCondition.Builder(BuiltInLootTables.END_CITY_TREASURE.location()).build()}, 3));
         add("sonic_boom_enchanted_book", new PHLootModifier(new LootItemCondition[]{new LootTableIdCondition.Builder(BuiltInLootTables.ANCIENT_CITY.location()).build()}, 5));
         add("paralysis_enchanted_book", new PHLootModifier(new LootItemCondition[]{AnyOfCondition.anyOf(manyChests(BuiltInLootTables.ABANDONED_MINESHAFT, BuiltInLootTables.DESERT_PYRAMID, BuiltInLootTables.FISHING, BuiltInLootTables.SPAWN_BONUS_CHEST)).build()}, 7));
-        add("tough_enchant_boot", new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(BuiltInLootTables.ABANDONED_MINESHAFT.location()).build()},LootTableGen.PET_PROTECTION_TABLE) );
+        add("tough_enchant_book", new PHLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(BuiltInLootTables.ABANDONED_MINESHAFT.location()).build()},8) );
+        // below using table but its chance is constant
+//        add("tough_enchant_book", new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(BuiltInLootTables.ABANDONED_MINESHAFT.location()).build()},LootTableGen.PET_PROTECTION_TABLE) );
     }
 
     @SafeVarargs

@@ -33,6 +33,7 @@ public class PetHomeConfig {
     private static final ModConfigSpec.DoubleValue VAMPIRISM_LOOT_CHANCE = BUILDER.comment("percent chance of woodland mansion loot table containing Vampire book:").defineInRange("vampirism_loot_chance", 0.22D, 0.0, 1.0D);
     private static final ModConfigSpec.DoubleValue SONIC_BOOM_LOOT_CHANCE = BUILDER.comment("percent chance of woodland mansion loot table containing Sonic boom book:").defineInRange("sonic_boom_loot_chance", 0.6D, 0.0, 1.0D);
     private static final ModConfigSpec.DoubleValue PARALYSIS_LOOT_CHANCE = BUILDER.comment("percent chance of chest loot table containing paralysis book:").defineInRange("paralysis_loot_chance", 0.1D, 0.0, 1.0D);
+    private static final ModConfigSpec.DoubleValue TOUGH_LOOT_CHANCE = BUILDER.comment("percent chance of chest loot table containing tough book:").defineInRange("tough_loot_chance", 0.1D, 0.0, 1.0D);
     private static final ModConfigSpec.DoubleValue SHARE_LOOT_CHANCE = BUILDER.comment("percent chance of ender city loot table containing share book:").defineInRange("share_loot_chance", 0.5D, 0.0, 1.0D);
 
     private static final ModConfigSpec.DoubleValue ORE_SCENTING_LOOT_CHANCE = BUILDER.comment("percent chance of mineshaft loot table containing Ore Scenting book:").defineInRange("ore_scenting_loot_chance", 0.15D, 0.0, 1.0D);
@@ -106,6 +107,7 @@ public class PetHomeConfig {
     public static double sonicBoomLootChance;
     public static double blazingProtectionLootChance;
     public static double paralysisLootChance;
+    public static double toughLootChance;
     public static boolean protectPetsFromOwner = true;
     public static int petstoreVillageWeight;
     public static boolean rottenApple;
@@ -147,6 +149,7 @@ public class PetHomeConfig {
         shareLootChance = SHARE_LOOT_CHANCE.get();
         sonicBoomLootChance = SONIC_BOOM_LOOT_CHANCE.get();
         paralysisLootChance = PARALYSIS_LOOT_CHANCE.get();
+        toughLootChance=TOUGH_LOOT_CHANCE.get();
         blazingProtectionLootChance = BLAZING_PROTECTION_LOOT_CHANCE.get();
         // convert the list of strings into a set of items
         noProtectionEntity = (NO_PROTECTION_ENTITY.get()).stream().map((entityTypeName) -> BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(entityTypeName))).collect(Collectors.toSet());
