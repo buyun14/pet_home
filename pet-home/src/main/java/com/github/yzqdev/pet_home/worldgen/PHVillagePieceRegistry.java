@@ -11,6 +11,6 @@ public class PHVillagePieceRegistry {
 
     public static final DeferredRegister<StructurePoolElementType<?>> DEF_REG = DeferredRegister.create(Registries.STRUCTURE_POOL_ELEMENT, PetHomeMod.MODID);
 
-    public static final DeferredHolder<StructurePoolElementType<?>,StructurePoolElementType<PetshopStructurePoolElement>> PETSHOP = DEF_REG.register("petshop", () -> () -> PetshopStructurePoolElement.CODEC);
+    public static final DeferredHolder<StructurePoolElementType<?>, StructurePoolElementType<PetshopStructurePoolElement>> PETSHOP = DEF_REG.register("petshop", () -> () -> PetshopStructurePoolElement.CODEC);
 
 }

@@ -21,10 +21,10 @@ public class ServerPayloadHandler {
 
         context.enqueueWork(() -> {
                     LOGGER.info(String.valueOf(data.entityID()));
-                    var level=context.player().level();
+                    var level = context.player().level();
                     Entity e = level.getEntity(data.entityID());
-                    if (e instanceof LivingEntity && (  data. propertyID().equals(ModConstants.entityDataTagUpdate))) {
-                        CitadelEntityData.setCitadelTag((LivingEntity)e, data.compound());
+                    if (e instanceof LivingEntity && (data.propertyID().equals(ModConstants.entityDataTagUpdate))) {
+                        CitadelEntityData.setCitadelTag((LivingEntity) e, data.compound());
                     }
                 })
                 .exceptionally(e -> {

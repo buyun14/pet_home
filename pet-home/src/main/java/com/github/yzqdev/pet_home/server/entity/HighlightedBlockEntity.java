@@ -10,7 +10,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 
-
 public class HighlightedBlockEntity extends Entity {
 
     private static final EntityDataAccessor<Integer> LIFESPAN = SynchedEntityData.defineId(HighlightedBlockEntity.class, EntityDataSerializers.INT);
@@ -20,28 +19,28 @@ public class HighlightedBlockEntity extends Entity {
     }
 
 
-
+    @Override
     public void tick() {
         super.tick();
-        if(this.getBlockState().isAir()){
+        if (this.getBlockState().isAir()) {
             this.discard();
         }
-        if(getLifespan() <= 0){
+        if (getLifespan() <= 0) {
             this.discard();
-        }else{
-           this.setLifespan(this.getLifespan() - 1);
+        } else {
+            this.setLifespan(this.getLifespan() - 1);
         }
     }
 
+    @Override
     public boolean isNoGravity() {
         return true;
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(LIFESPAN,20);
+        builder.define(LIFESPAN, 20);
     }
-
 
 
     @Override
@@ -61,7 +60,6 @@ public class HighlightedBlockEntity extends Entity {
     public void setLifespan(int i) {
         this.entityData.set(LIFESPAN, i);
     }
-
 
 
     public boolean shouldRiderSit() {

@@ -8,20 +8,25 @@ import java.util.UUID;
 
 public interface ModifedToBeTameable extends OwnableEntity {
     boolean isTame();
+
     void setTame(boolean value);
+
     @Nullable
     UUID getTameOwnerUUID();
+
     void setTameOwnerUUID(@Nullable UUID uuid);
+
     @Nullable
     LivingEntity getTameOwner();
 
     boolean isStayingStill();
+
     boolean isFollowingOwner();
 
     boolean isValidAttackTarget(LivingEntity target);
 
     @Nullable
-    default UUID getOwnerUUID(){
+    default UUID getOwnerUUID() {
         return getTameOwnerUUID();
     }
 

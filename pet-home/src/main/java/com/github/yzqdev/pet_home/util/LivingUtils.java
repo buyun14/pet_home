@@ -11,7 +11,7 @@ public class LivingUtils {
     public static void setAttackTarget(Monster monster, Monster otherMonster) {
         if (monster != null && otherMonster != null && monster != otherMonster) {
             if (monster instanceof AbstractPiglin) {
-                ((AbstractPiglin) monster).getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, otherMonster);
+                (monster).getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, otherMonster);
                 monster.setTarget(otherMonster);
                 monster.setLastHurtMob(otherMonster);
             } else if (monster instanceof NeutralMob) {
@@ -23,6 +23,7 @@ public class LivingUtils {
         }
 
     }
+
     public static AABB getBoundingBoxAroundEntity(Entity entity, double radius) {
         return new AABB(entity.getX() - radius, entity.getY() - radius, entity.getZ() - radius, entity.getX() + radius, entity.getY() + radius, entity.getZ() + radius);
     }

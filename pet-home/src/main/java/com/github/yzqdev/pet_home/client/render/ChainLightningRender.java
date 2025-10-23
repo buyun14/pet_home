@@ -31,9 +31,9 @@ public class ChainLightningRender extends EntityRenderer<ChainLightningEntity> {
         super.render(entity, yaw, partialTicks, poseStack, buffer, light);
         poseStack.pushPose();
         Entity from = entity.getFromEntity();
-        float x = (float)Mth.lerp(partialTicks, entity.xo, entity.getX());
-        float y = (float)Mth.lerp(partialTicks, entity.yo, entity.getY());
-        float z = (float)Mth.lerp(partialTicks, entity.zo, entity.getZ());
+        float x = (float) Mth.lerp(partialTicks, entity.xo, entity.getX());
+        float y = (float) Mth.lerp(partialTicks, entity.yo, entity.getY());
+        float z = (float) Mth.lerp(partialTicks, entity.zo, entity.getZ());
         if (from != null) {
             LightningBoltData bolt = new LightningBoltData(lightningBoltData, from.getEyePosition(), entity.position(), 5)
                     .size(0.1F)

@@ -18,7 +18,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class RenderHighlightedBlock extends EntityRenderer<HighlightedBlockEntity> {
 
 
-
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "textures/highlighted_block.png");
     private final HighlightedBlockModel highlightedBlockModel = new HighlightedBlockModel();
 
@@ -31,7 +30,7 @@ public class RenderHighlightedBlock extends EntityRenderer<HighlightedBlockEntit
         stack.pushPose();
         stack.translate(0, 0.5F, 0);
         VertexConsumer vertexconsumer = source.getBuffer(RenderType.outline(this.getTextureLocation(entity)));
-        this.highlightedBlockModel.renderToBuffer(stack,vertexconsumer,packedLight, OverlayTexture.NO_OVERLAY, 1  );
+        this.highlightedBlockModel.renderToBuffer(stack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1);
 //        this.highlightedBlockModel.renderToBuffer(stack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         stack.popPose();
     }

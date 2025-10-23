@@ -8,13 +8,13 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-@EventBusSubscriber(modid = PetHomeMod.MODID,bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = PetHomeMod.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Networking {
     @SubscribeEvent
     public static void register(final RegisterPayloadHandlersEvent event) {
-        final PayloadRegistrar registrar = event.registrar( PetHomeMod.MODID);
+        final PayloadRegistrar registrar = event.registrar(PetHomeMod.MODID);
         registrar.playBidirectional(
-               PropertiesMessage.TYPE,
+                PropertiesMessage.TYPE,
                 PropertiesMessage.STREAM_CODEC,
                 new DirectionalPayloadHandler<>(
                         ClientPayloadHandler::handleData,

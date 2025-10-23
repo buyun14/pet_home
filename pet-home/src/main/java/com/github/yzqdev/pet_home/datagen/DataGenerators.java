@@ -1,7 +1,6 @@
 package com.github.yzqdev.pet_home.datagen;
 
 import com.github.yzqdev.pet_home.PetHomeMod;
-
 import com.github.yzqdev.pet_home.datagen.loot.GlobalLootModifier;
 import com.github.yzqdev.pet_home.datagen.loot.PHLootProvider;
 import net.minecraft.core.HolderLookup;

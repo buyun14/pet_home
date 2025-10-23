@@ -17,15 +17,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
- 
 
 import javax.annotation.Nonnull;
 
 public class NetEntity extends ThrowableItemProjectile {
 
-private String entityNbt="itemNbt";
+    private String entityNbt = "itemNbt";
     private ItemStack itemStack = ItemStack.EMPTY;
     private boolean hasItemStack = false;
+
     public NetEntity(EntityType<? extends ThrowableItemProjectile> entityType, Level world) {
         super(entityType, world);
     }
@@ -100,13 +100,16 @@ private String entityNbt="itemNbt";
 
         this.discard();
     }
+
     // 设置自定义物品堆并标记
     public void setItemStack(ItemStack stack) {
-        this.itemStack = stack.copy(); // 确保使用副本
+        // 确保使用副本
+        this.itemStack = stack.copy();
         this.hasItemStack = true;
         // 更新父类中的物品引用
         this.setItem(this.itemStack);
     }
+
     protected ItemEntity createDroppedItemAtEntity(Entity entity, ItemStack stack) {
         return new ItemEntity(this.level(), entity.getX(), entity.getY(), entity.getZ(), stack);
     }
@@ -119,7 +122,7 @@ private String entityNbt="itemNbt";
 //        }
         if (hasItemStack) {
             nbt.put(entityNbt, itemStack.save(level().registryAccess()));
-             
+
         }
 
     }
@@ -128,8 +131,8 @@ private String entityNbt="itemNbt";
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         itemStack = ItemStack.parse(level().registryAccess(), nbt.getCompound(PetHomeMod.MODID)).get();
-        if ( nbt.contains(entityNbt, Tag.TAG_COMPOUND)) {
-            ItemStack savedStack = ItemStack.parse(level().registryAccess(),nbt.getCompound(entityNbt)).get();
+        if (nbt.contains(entityNbt, Tag.TAG_COMPOUND)) {
+            ItemStack savedStack = ItemStack.parse(level().registryAccess(), nbt.getCompound(entityNbt)).get();
             setItemStack(savedStack);
         } else {
             hasItemStack = false;

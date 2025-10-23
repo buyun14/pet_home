@@ -23,17 +23,19 @@ public class FeatherOnAStickItem extends Item {
     public FeatherOnAStickItem() {
         super(new Item.Properties().durability(160));
     }
+
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("tooltips.pet_home.substitute_feather.desc").withStyle(ChatFormatting.GREEN));
 
     }
+
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (player.fishing != null && player.fishing.isAlive()) {
             if (!level.isClientSide) {
                 int i = player.fishing.retrieve(itemstack);
-                itemstack.hurtAndBreak(i, player , EquipmentSlot.MAINHAND);
+                itemstack.hurtAndBreak(i, player, EquipmentSlot.MAINHAND);
             }
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
             player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);

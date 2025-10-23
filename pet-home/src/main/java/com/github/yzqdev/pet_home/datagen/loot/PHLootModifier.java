@@ -20,7 +20,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 
-
 import javax.annotation.Nonnull;
 
 public class PHLootModifier extends LootModifier {
@@ -83,7 +82,7 @@ public class PHLootModifier extends LootModifier {
                     generatedLoot.add(enchantedBook(ModEnchantments.PARALYSIS, context.getRandom(), context));
                 }
             }
-            case 8->{
+            case 8 -> {
                 if (context.getRandom().nextFloat() < PetHomeConfig.toughLootChance) {
                     generatedLoot.add(enchantedBook(ModEnchantments.TOUGH, context.getRandom(), context));
                 }

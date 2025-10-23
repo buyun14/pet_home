@@ -222,10 +222,10 @@ public class ModZhLangProvider extends LanguageProvider {
         add(LangDefinition.ConstantMsg.no_net_entity_text, "没有可以释放的生物球");
         add(LangDefinition.ConstantMsg.net_launcher_tip, "[按住shift然后右击,可以切换释放和捕捉状态]");
         add(LangDefinition.ConstantMsg.net_launcher_default_only_tamable, "默认只能捕捉可驯服的生物,可以在配置文件修改");
-        add( LangDefinition.conf("mobcatcherOnlyTamableAnimal"), "生物球只能捕捉可驯服的生物");
-        add( LangDefinition.conf("mobcatcherOnlyTamableAnimal.tooltip"), "设置为否可以捕捉所有生物");
-        add( LangDefinition.conf("mobcatcherBlacklist"), "生物球可捕捉黑名单");
-        add( LangDefinition.conf("mobcatcherBlacklist.tooltip"), "生物球不能捕捉的生物");
+        add(LangDefinition.conf("mobcatcherOnlyTamableAnimal"), "生物球只能捕捉可驯服的生物");
+        add(LangDefinition.conf("mobcatcherOnlyTamableAnimal.tooltip"), "设置为否可以捕捉所有生物");
+        add(LangDefinition.conf("mobcatcherBlacklist"), "生物球可捕捉黑名单");
+        add(LangDefinition.conf("mobcatcherBlacklist.tooltip"), "生物球不能捕捉的生物");
 
 
         add("pet_home.configuration.tough_loot_chance.tooltip", "稳固附魔书在废弃矿井宝箱中的概率");

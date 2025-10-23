@@ -18,29 +18,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Mob.class)
 public abstract class MobMixin extends LivingEntity {
 
-
-
-
     protected MobMixin(EntityType<? extends LivingEntity> type, Level level) {
         super(type, level);
     }
 
-
     @Inject(
             method = {"pickUpItem(Lnet/minecraft/world/entity/item/ItemEntity;)V"},
-            remap = true,
+
             at = @At(value = "HEAD"),
             cancellable = true
     )
     private void di_pickUpItem(ItemEntity item, CallbackInfo ci) {
-        if(TameableUtils.isTamed(this) && TameableUtils.hasEnchant(this, ModEnchantments.LINKED_INVENTORY)){
+        if (TameableUtils.isTamed(this) && TameableUtils.hasEnchant(this, ModEnchantments.LINKED_INVENTORY)) {
             Entity owner = TameableUtils.getOwnerOf(this);
-            if(owner instanceof Player){
+            if (owner instanceof Player player) {
                 ci.cancel();
-                if(((Player) owner).addItem(item.getItem())){
+                if (player.addItem(item.getItem())) {
                     item.discard();
-                }else{
-                    item.copyPosition(owner);
+                } else {
+                    item.copyPosition(player);
                 }
             }
 

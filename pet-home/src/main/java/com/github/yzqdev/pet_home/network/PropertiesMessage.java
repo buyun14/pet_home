@@ -12,15 +12,15 @@ import net.minecraft.resources.ResourceLocation;
  * @date time 2025/1/9 11:32
  * @modified By:
  *
- */  public record PropertiesMessage(String propertyID, CompoundTag compound, int entityID)  implements CustomPacketPayload {
-    public static final StreamCodec<FriendlyByteBuf,PropertiesMessage> STREAM_CODEC =
-            CustomPacketPayload.codec(PropertiesMessage::write,PropertiesMessage::new);
-    public static final Type<PropertiesMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID,"pet_entity_tag"));
+ */
+public record PropertiesMessage(String propertyID, CompoundTag compound, int entityID) implements CustomPacketPayload {
+    public static final StreamCodec<FriendlyByteBuf, PropertiesMessage> STREAM_CODEC =
+            CustomPacketPayload.codec(PropertiesMessage::write, PropertiesMessage::new);
+    public static final Type<PropertiesMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "pet_entity_tag"));
 
 
-
-    public PropertiesMessage(final FriendlyByteBuf buf){
-        this(buf.readUtf(),buf.readNbt(),buf.readInt());
+    public PropertiesMessage(final FriendlyByteBuf buf) {
+        this(buf.readUtf(), buf.readNbt(), buf.readInt());
     }
 
     public void write(FriendlyByteBuf pBuffer) {
@@ -28,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
         pBuffer.writeNbt(compound());
         pBuffer.writeInt(entityID());
     }
+
     @Override
     public Type<? extends CustomPacketPayload> type() {
         return TYPE;

@@ -8,7 +8,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
@@ -16,9 +15,9 @@ import java.util.List;
 
 public class PetbedItem extends BlockItem {
     private final DyeColor color;
-    private final DeferredHolder<Block,Block> blockSupplier;
+    private final DeferredHolder<Block, Block> blockSupplier;
 
-    public PetbedItem(DeferredHolder<Block,Block> blockSupplier, Properties props, DyeColor color) {
+    public PetbedItem(DeferredHolder<Block, Block> blockSupplier, Properties props, DyeColor color) {
         super(null, props);
         this.blockSupplier = blockSupplier;
         this.color = color;
@@ -28,7 +27,6 @@ public class PetbedItem extends BlockItem {
     public Block getBlock() {
         return blockSupplier.get();
     }
-
 
 
     public void onDestroyed(ItemEntity itemEntity) {

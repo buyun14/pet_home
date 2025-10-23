@@ -33,7 +33,7 @@ public abstract class FishingHookMixin extends Projectile {
             )
     )
     private FluidState di_getFluidState(Level level, BlockPos pos) {
-        return (Projectile)this instanceof FeatherEntity ? Fluids.EMPTY.defaultFluidState() : level.getFluidState(pos);
+        return (Projectile) this instanceof FeatherEntity ? Fluids.EMPTY.defaultFluidState() : level.getFluidState(pos);
     }
 
     @Inject(
@@ -45,7 +45,7 @@ public abstract class FishingHookMixin extends Projectile {
             cancellable = true
     )
     private void di_shouldStopFishing(Player player, CallbackInfoReturnable<Boolean> cir) {
-        if((Projectile)this instanceof FeatherEntity){
+        if ((Projectile) this instanceof FeatherEntity) {
             ItemStack itemstack = player.getMainHandItem();
             ItemStack itemstack1 = player.getOffhandItem();
             boolean flag = itemstack.is(PHItemRegistry.FEATHER_ON_A_STICK.get());

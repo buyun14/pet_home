@@ -21,7 +21,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-
 import java.util.Random;
 
 public class ParticleDeflectionShield extends Particle {
@@ -46,15 +45,15 @@ public class ParticleDeflectionShield extends Particle {
         Vec3 vec3 = camera.getPosition();
         PoseStack posestack = new PoseStack();
         MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
-        float f = (float)(Mth.lerp((double)partialTick, this.xo, this.x) - vec3.x());
-        float f1 = (float)(Mth.lerp((double)partialTick, this.yo, this.y) - vec3.y());
-        float f2 = (float)(Mth.lerp((double)partialTick, this.zo, this.z) - vec3.z());
+        float f = (float) (Mth.lerp((double) partialTick, this.xo, this.x) - vec3.x());
+        float f1 = (float) (Mth.lerp((double) partialTick, this.yo, this.y) - vec3.y());
+        float f2 = (float) (Mth.lerp((double) partialTick, this.zo, this.z) - vec3.z());
         float lerpAge = this.age + partialTick;
         float ageProgress = lerpAge / (float) this.lifetime;
         float fadeTime = 0.15F;
         float fadeIn = Math.min(ageProgress, fadeTime) / fadeTime;
         float fadeOut = Mth.clamp(ageProgress - (1F - fadeTime), 0F, fadeTime) / fadeTime;
-        float up = -1F + fadeIn + (float)Math.sin(lerpAge * 0.3F) * 0.03F;
+        float up = -1F + fadeIn + (float) Math.sin(lerpAge * 0.3F) * 0.03F;
         float down = -1F * fadeOut;
         float scale = (fadeIn - fadeOut) * 1.85F;
         posestack.pushPose();
@@ -71,7 +70,7 @@ public class ParticleDeflectionShield extends Particle {
     @OnlyIn(Dist.CLIENT)
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new ParticleDeflectionShield(worldIn, x, y, z, (float)xSpeed, (float)ySpeed);
+            return new ParticleDeflectionShield(worldIn, x, y, z, (float) xSpeed, (float) ySpeed);
         }
     }
 }

@@ -22,8 +22,8 @@ public class ModTags {
 
     public static final TagKey<Item> PetBedKey = TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "pet_beds"));
     public static final TagKey<Enchantment> TradableEnchantmentKey = TagKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "trade_enchantment_book"));
-    public static final TagKey<Enchantment> INFUSE_EXTRA= TagKey.create(Registries.ENCHANTMENT, ResourceLocation.parse("enchantinginfuser:infuse_extra"));
+    public static final TagKey<Enchantment> INFUSE_EXTRA = TagKey.create(Registries.ENCHANTMENT, ResourceLocation.parse("enchantinginfuser:infuse_extra"));
 
-    public static TagKey<EntityType<?>> infamy_target_attracted= TagKey.create(BuiltInRegistries.ENTITY_TYPE.key(), ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "infamy_target_attracted"));
+    public static TagKey<EntityType<?>> infamy_target_attracted = TagKey.create(BuiltInRegistries.ENTITY_TYPE.key(), ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "infamy_target_attracted"));
     public static final TagKey<EntityType<?>> blacklisted = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "blacklisted"));
 }

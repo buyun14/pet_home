@@ -1,7 +1,7 @@
 package com.github.yzqdev.pet_home.mixin;
 
-import com.github.yzqdev.pet_home.util.PetBedDrop;
 import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
+import com.github.yzqdev.pet_home.util.PetBedDrop;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

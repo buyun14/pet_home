@@ -9,13 +9,13 @@ import snownee.jade.api.WailaPlugin;
 @WailaPlugin
 public class PetHomePlugin implements IWailaPlugin {
 
-  @Override
-  public void register(IWailaCommonRegistration registration) {
-    IWailaPlugin.super.register(registration);
-  }
+    @Override
+    public void register(IWailaCommonRegistration registration) {
+        IWailaPlugin.super.register(registration);
+    }
 
-  @Override
-  public void registerClient(IWailaClientRegistration registration) {
-    registration.registerEntityComponent(PetHomeComponentProvider.INSTANCE, LivingEntity.class);
-  }
+    @Override
+    public void registerClient(IWailaClientRegistration registration) {
+        registration.registerEntityComponent(PetHomeComponentProvider.INSTANCE, LivingEntity.class);
+    }
 }

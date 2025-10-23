@@ -1,11 +1,7 @@
 package com.github.yzqdev.pet_home.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.SimpleAnimatedParticle;
-import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -26,10 +22,11 @@ public class ParticleGiantPop extends SimpleAnimatedParticle {
         this.pickSprite(sprites);
     }
 
-    public void tick(){
+    public void tick() {
         super.tick();
-        this.quadSize = 1.5F + 0.5F * (age / (float)lifetime);
+        this.quadSize = 1.5F + 0.5F * (age / (float) lifetime);
     }
+
     public int getLightColor(float p_107249_) {
         BlockPos blockpos = BlockPos.containing(this.x, this.y, this.z);
         return this.level.hasChunkAt(blockpos) ? LevelRenderer.getLightColor(this.level, blockpos) : 0;

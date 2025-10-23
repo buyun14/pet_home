@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,17 +54,17 @@ public class ChainLightningEntity extends Entity {
         if (creator instanceof LivingEntity) {
             if (current != null) {
                 this.setPos(new Vec3(current.getX(), current.getY() + current.getBbHeight() * 0.5F, current.getZ()));
-                if(!level().isClientSide){
-                    if(!hasShocked){
+                if (!level().isClientSide) {
+                    if (!hasShocked) {
                         hasShocked = true;
                         current.hurt(current.damageSources().lightningBolt(), 3);
                     }
                 }
             }
         }
-        if(!level().isClientSide){
-            if(!hasChained){
-                if(this.getChainsLeft() > 0 && creator instanceof LivingEntity) {
+        if (!level().isClientSide) {
+            if (!hasChained) {
+                if (this.getChainsLeft() > 0 && creator instanceof LivingEntity) {
                     Entity closestValid = null;
                     for (Entity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(8.0D))) {
                         if (!entity.equals(creator) && !TameableUtils.hasSameOwnerAs((LivingEntity) creator, entity) && !previouslyShocked.contains(entity) && !creator.isAlliedTo(entity) && entity instanceof Mob && this.hasLineOfSight(entity)) {
@@ -74,15 +73,15 @@ public class ChainLightningEntity extends Entity {
                             }
                         }
                     }
-                    if(closestValid != null){
+                    if (closestValid != null) {
                         createLightningAt(closestValid);
                         hasChained = true;
                     }
                 }
             }
-            if(getDiesInTicks() > 0){
+            if (getDiesInTicks() > 0) {
                 this.setDiesInTicks(getDiesInTicks() - 1);
-            }else{
+            } else {
                 this.remove(RemovalReason.DISCARDED);
             }
         }
@@ -99,7 +98,7 @@ public class ChainLightningEntity extends Entity {
             } else {
                 return this.level().clip(new ClipContext(vec3, vec31, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getType() == HitResult.Type.MISS;
             }
-        }     
+        }
     }
 
     private void createLightningAt(Entity closestValid) {

@@ -19,7 +19,6 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 
-
 import java.util.List;
 
 public class EnchantItemTrade implements VillagerTrades.ItemListing {
@@ -47,21 +46,21 @@ public class EnchantItemTrade implements VillagerTrades.ItemListing {
 
     public MerchantOffer getOffer(Entity entity, RandomSource random) {
         int i = Math.max(6, enchantXp + 5 - random.nextInt(5));
-        ItemStack itemstack = enchant(random, new ItemStack(this.itemStack.getItem()), i, enchantmentCount,entity);
+        ItemStack itemstack = enchant(random, new ItemStack(this.itemStack.getItem()), i, enchantmentCount, entity);
         int j = Math.min(this.baseEmeraldCost + i, 64);
 
-        return new MerchantOffer(new ItemCost(Items.EMERALD,j), itemstack, this.maxUses, this.villagerXp, this.priceMultiplier);
+        return new MerchantOffer(new ItemCost(Items.EMERALD, j), itemstack, this.maxUses, this.villagerXp, this.priceMultiplier);
     }
 
-    public ItemStack enchant(RandomSource random, ItemStack stack, int enchantXp, int howManyEnchants,Entity trader) {
+    public ItemStack enchant(RandomSource random, ItemStack stack, int enchantXp, int howManyEnchants, Entity trader) {
         List<EnchantmentInstance> list = selectEnchantment(random, stack, enchantXp, howManyEnchants, trader);
-        for(EnchantmentInstance enchantmentinstance : list) {
+        for (EnchantmentInstance enchantmentinstance : list) {
             stack.enchant(enchantmentinstance.enchantment, enchantmentinstance.level);
         }
         return stack;
     }
 
-    public static List<EnchantmentInstance> selectEnchantment(RandomSource random, ItemStack stacks, int expIThink, int enchantmentCount,Entity trader) {
+    public static List<EnchantmentInstance> selectEnchantment(RandomSource random, ItemStack stacks, int expIThink, int enchantmentCount, Entity trader) {
         List<EnchantmentInstance> list = Lists.newArrayList();
         Item item = stacks.getItem();
         int i = stacks.getEnchantmentValue();
@@ -70,12 +69,12 @@ public class EnchantItemTrade implements VillagerTrades.ItemListing {
         } else {
             expIThink += 1 + random.nextInt(i / 4 + 1) + random.nextInt(i / 4 + 1);
             float f = (random.nextFloat() + random.nextFloat() - 1.0F) * 0.15F;
-            expIThink = Mth.clamp(Math.round((float)expIThink + (float)expIThink * f), 1, Integer.MAX_VALUE);
-            List<EnchantmentInstance> list1 = getAvailableEnchantmentResults(expIThink, stacks,trader);
+            expIThink = Mth.clamp(Math.round((float) expIThink + (float) expIThink * f), 1, Integer.MAX_VALUE);
+            List<EnchantmentInstance> list1 = getAvailableEnchantmentResults(expIThink, stacks, trader);
             int ehcantmentsSoFar = 0;
             if (!list1.isEmpty()) {
                 WeightedRandom.getRandomItem(random, list1).ifPresent(list::add);
-                while(ehcantmentsSoFar < enchantmentCount && random.nextInt(25) != 0) {
+                while (ehcantmentsSoFar < enchantmentCount && random.nextInt(25) != 0) {
                     if (!list.isEmpty()) {
                         EnchantmentHelper.filterCompatibleEnchantments(list1, Util.lastOf(list));
                     }
@@ -96,17 +95,17 @@ public class EnchantItemTrade implements VillagerTrades.ItemListing {
     /*
         Inclusive of curses, not of treasure
      */
-    private static List<EnchantmentInstance> getAvailableEnchantmentResults(int levels, ItemStack stack,Entity trader) {
+    private static List<EnchantmentInstance> getAvailableEnchantmentResults(int levels, ItemStack stack, Entity trader) {
         List<EnchantmentInstance> list = Lists.newArrayList();
         Item item = stack.getItem();
         boolean flag = stack.is(Items.BOOK);
-      var enchantRegistry = trader.level()
+        var enchantRegistry = trader.level()
                 .registryAccess()
-                .registryOrThrow(Registries.ENCHANTMENT) ;
+                .registryOrThrow(Registries.ENCHANTMENT);
         for (Holder<Enchantment> enchantmentHolder : enchantRegistry.getTagOrEmpty(ModTags.TradableEnchantmentKey)) {
-            var enchant=enchantmentHolder.value();
-            for(int i = enchant.getMaxLevel(); i > enchant .getMinLevel() - 1; --i) {
-                if (levels >= enchant .getMinCost(i) && levels <= enchant .getMaxCost(i)) {
+            var enchant = enchantmentHolder.value();
+            for (int i = enchant.getMaxLevel(); i > enchant.getMinLevel() - 1; --i) {
+                if (levels >= enchant.getMinCost(i) && levels <= enchant.getMaxCost(i)) {
                     list.add(new EnchantmentInstance(enchantmentHolder, i));
                     break;
                 }

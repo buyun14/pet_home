@@ -1,6 +1,6 @@
 package com.github.yzqdev.pet_home.server.misc;
 
- 
+
 import com.github.yzqdev.pet_home.PetHomeMod;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +19,7 @@ public class PHTagRegistry {
     public static final TagKey<Item> TAME_FROGS_WITH = registerItem("tame_frogs_with");
 
     private static TagKey<EntityType<?>> registerEntity(String name) {
-        return TagKey.create(Registries.ENTITY_TYPE,   ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, name));
+        return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, name));
     }
 
     private static TagKey<Item> registerItem(String name) {

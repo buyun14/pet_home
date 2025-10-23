@@ -13,10 +13,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.RandomizableContainer;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseCoralPlantTypeBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.pools.LegacySinglePoolElement;
@@ -24,7 +30,6 @@ import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElementTy
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraft.world.phys.Vec3;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -43,8 +48,8 @@ public class PetshopStructurePoolElement extends LegacySinglePoolElement {
     private static EntityType[] cage2Mobs = null;
     private static EntityType[] cage3Mobs = null;
 
-    public static final MapCodec<PetshopStructurePoolElement> CODEC = RecordCodecBuilder.mapCodec((p_210357_) -> {
-        return p_210357_.group(templateCodec(), processorsCodec(), projectionCodec(), overrideLiquidSettingsCodec()).apply(p_210357_, PetshopStructurePoolElement::new);
+    public static final MapCodec<PetshopStructurePoolElement> CODEC = RecordCodecBuilder.mapCodec((petshopStructurePoolElementInstance) -> {
+        return petshopStructurePoolElementInstance.group(templateCodec(), processorsCodec(), projectionCodec(), overrideLiquidSettingsCodec()).apply(petshopStructurePoolElementInstance, PetshopStructurePoolElement::new);
     });
 
     protected PetshopStructurePoolElement(Either<ResourceLocation, StructureTemplate> either, Holder<StructureProcessorList> p_210349_, StructureTemplatePool.Projection p_210350_, Optional<LiquidSettings> liquidSettings) {
@@ -61,8 +66,8 @@ public class PetshopStructurePoolElement extends LegacySinglePoolElement {
 
         if (!initializedMobLists) {
             fishtankMobs = getAllMatchingEntities(PHTagRegistry.PETSTORE_FISHTANK).toArray(new EntityType[0]);
-            cage0Mobs = getAllMatchingEntities(PHTagRegistry.PETSTORE_CAGE_0).toArray( EntityType[]::new);
-            cage1Mobs = getAllMatchingEntities(PHTagRegistry.PETSTORE_CAGE_1).toArray( EntityType[]::new);
+            cage0Mobs = getAllMatchingEntities(PHTagRegistry.PETSTORE_CAGE_0).toArray(EntityType[]::new);
+            cage1Mobs = getAllMatchingEntities(PHTagRegistry.PETSTORE_CAGE_1).toArray(EntityType[]::new);
             cage2Mobs = getAllMatchingEntities(PHTagRegistry.PETSTORE_CAGE_2).toArray(EntityType[]::new);
             cage3Mobs = getAllMatchingEntities(PHTagRegistry.PETSTORE_CAGE_3).toArray(EntityType[]::new);
             initializedMobLists = true;
@@ -150,10 +155,12 @@ public class PetshopStructurePoolElement extends LegacySinglePoolElement {
         return structureplacesettings;
     }
 
+    @Override
     public StructurePoolElementType<?> getType() {
         return PHVillagePieceRegistry.PETSHOP.get();
     }
 
+    @Override
     public String toString() {
         return "PetShop[" + this.template + "]";
     }

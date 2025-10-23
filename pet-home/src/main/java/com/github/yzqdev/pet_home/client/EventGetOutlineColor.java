@@ -5,8 +5,6 @@ import net.minecraft.world.entity.Mob;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.Event;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.entity.living.MobDespawnEvent;
 
 @OnlyIn(Dist.CLIENT)
 //@Event.HasResult
@@ -15,7 +13,8 @@ import net.neoforged.neoforge.event.entity.living.MobDespawnEvent;
 public class EventGetOutlineColor extends Event {
     private Entity entityIn;
     private int color;
-    protected  Result result =  Result.DEFAULT;
+    protected Result result = Result.DEFAULT;
+
     public EventGetOutlineColor(Entity entityIn, int color) {
         this.entityIn = entityIn;
         this.color = color;
@@ -36,10 +35,12 @@ public class EventGetOutlineColor extends Event {
     public void setColor(int color) {
         this.color = color;
     }
-    public  Result getResult() {
+
+    public Result getResult() {
         return this.result;
     }
-    public void setResult( Result result) {
+
+    public void setResult(Result result) {
         this.result = result;
     }
 

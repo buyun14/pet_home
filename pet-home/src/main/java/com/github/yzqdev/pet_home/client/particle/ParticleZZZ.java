@@ -34,20 +34,20 @@ public class ParticleZZZ extends SimpleAnimatedParticle {
 
     public void tick() {
         super.tick();
-        float xTarget = initialX + (float)Math.cos(this.age * 0.3F + this.cosOffset * 4) * 0.2F * rotationDir;
-        float zTarget = initialZ + (float)Math.sin(this.age * 0.3F + this.sinOffset * 4) * 0.2F * rotationDir;
+        float xTarget = initialX + (float) Math.cos(this.age * 0.3F + this.cosOffset * 4) * 0.2F * rotationDir;
+        float zTarget = initialZ + (float) Math.sin(this.age * 0.3F + this.sinOffset * 4) * 0.2F * rotationDir;
         this.xd = 0.3F * (xTarget - x);
         this.zd = 0.3F * (zTarget - z);
         this.setAlpha(1F - (this.age / (float) this.lifetime));
     }
 
     public int getLightColor(float partialTicks) {
-        float f = ((float)this.age + partialTicks) / (float)this.lifetime;
+        float f = ((float) this.age + partialTicks) / (float) this.lifetime;
         f = Mth.clamp(f, 0.0F, 1.0F);
         int i = super.getLightColor(partialTicks);
         int j = i & 255;
         int k = i >> 16 & 255;
-        j += (int)(f * 15.0F * 16.0F);
+        j += (int) (f * 15.0F * 16.0F);
         if (j > 240) {
             j = 240;
         }

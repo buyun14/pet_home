@@ -21,10 +21,12 @@ import java.util.Optional;
 
 public class SellingRandomEnchantedBook implements VillagerTrades.ItemListing {
     private final int villagerXp;
+
     public SellingRandomEnchantedBook(int villagerXp) {
-        this.villagerXp=villagerXp;
+        this.villagerXp = villagerXp;
     }
 
+    @Override
     public MerchantOffer getOffer(Entity trader, RandomSource random) {
         Optional<Holder<Enchantment>> optional = trader.level()
                 .registryAccess()

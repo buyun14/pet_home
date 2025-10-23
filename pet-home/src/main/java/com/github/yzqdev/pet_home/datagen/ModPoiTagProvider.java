@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 import static com.github.yzqdev.pet_home.server.misc.PHPOIRegistry.getBeds;
 
 public class ModPoiTagProvider extends PoiTypeTagsProvider {
-    public ModPoiTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider,   @Nullable ExistingFileHelper existingFileHelper) {
+    public ModPoiTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, provider, PetHomeMod.MODID, existingFileHelper);
     }
 
@@ -25,7 +25,7 @@ public class ModPoiTagProvider extends PoiTypeTagsProvider {
         this.tag(PoiTypeTags.ACQUIRABLE_JOB_SITE).add(PHPOIRegistry.PET_BED.getKey());
     }
 
-    public static void bootstrap(BootstrapContext<PoiType> bootstrap){
-        bootstrap.register(PHPOIRegistry.PET_BED.getKey(),new PoiType(getBeds(), 1, 1));
+    public static void bootstrap(BootstrapContext<PoiType> bootstrap) {
+        bootstrap.register(PHPOIRegistry.PET_BED.getKey(), new PoiType(getBeds(), 1, 1));
     }
 }

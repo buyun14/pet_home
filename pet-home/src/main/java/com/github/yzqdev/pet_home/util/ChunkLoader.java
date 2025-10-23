@@ -1,4 +1,5 @@
 package com.github.yzqdev.pet_home.util;
+
 import com.github.yzqdev.pet_home.PetHomeMod;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.TicketType;
@@ -12,7 +13,7 @@ public class ChunkLoader {
     public static void forceLoadChunk(Level level, ChunkPos chunkPos) {
         ServerLevel serverLevel = (ServerLevel) level;
         TicketType<ChunkPos> ticketType = TicketType.create(PetHomeMod.MODID, Comparator.comparingLong(ChunkPos::toLong));
-        
+
         // Request a ticket with infinite duration
         var ticketManager = serverLevel.getChunkSource().chunkMap.getDistanceManager();
         ticketManager.addRegionTicket(ticketType, chunkPos, 0, chunkPos);
@@ -22,7 +23,7 @@ public class ChunkLoader {
     public static void unloadChunk(Level level, ChunkPos chunkPos) {
         ServerLevel serverLevel = (ServerLevel) level;
         TicketType<ChunkPos> ticketType = TicketType.create(PetHomeMod.MODID, Comparator.comparingLong(ChunkPos::toLong));
-        
+
         var ticketManager = serverLevel.getChunkSource().chunkMap.getDistanceManager();
         ticketManager.removeRegionTicket(ticketType, chunkPos, 0, chunkPos);
     }

@@ -22,11 +22,11 @@ public class AgeableMobMixin extends PathfinderMob {
     @Inject(
             at = {@At("HEAD")},
             remap = true,
-            method = {"Lnet/minecraft/world/entity/AgeableMob;isBaby()Z"},
+            method = {"isBaby()Z"},
             cancellable = true
     )
-    private void di_isBaby(CallbackInfoReturnable<Boolean> cir){
-        if(TameableUtils.isTamed(this) && TameableUtils.hasEnchant(this, ModEnchantments.IMMATURITY_CURSE)){
+    private void di_isBaby(CallbackInfoReturnable<Boolean> cir) {
+        if (TameableUtils.isTamed(this) && TameableUtils.hasEnchant(this, ModEnchantments.IMMATURITY_CURSE)) {
             cir.setReturnValue(true);
         }
     }

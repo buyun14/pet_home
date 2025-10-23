@@ -1,9 +1,11 @@
 package com.github.yzqdev.pet_home.server.block;
+
 import net.minecraft.world.item.DyeColor;
 
 import java.util.HashMap;
+
 public class DyeColors {
-    public static final HashMap<DyeColor, Integer> COLORS = new HashMap<>(){{
+    public static final HashMap<DyeColor, Integer> COLORS = new HashMap<>() {{
         put(DyeColor.BLACK, 0x252525);
         put(DyeColor.RED, 0xeb4a39);
         put(DyeColor.GREEN, 0x51a80b);

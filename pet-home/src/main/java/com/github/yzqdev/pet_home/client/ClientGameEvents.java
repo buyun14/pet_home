@@ -1,17 +1,7 @@
 package com.github.yzqdev.pet_home.client;
 
 import com.github.yzqdev.pet_home.PetHomeMod;
-import com.github.yzqdev.pet_home.client.particle.ParticleBlight;
-import com.github.yzqdev.pet_home.client.particle.ParticleDeflectionShield;
-import com.github.yzqdev.pet_home.client.particle.ParticleGiantPop;
-import com.github.yzqdev.pet_home.client.particle.ParticleIntimidation;
-import com.github.yzqdev.pet_home.client.particle.ParticleMagnet;
-import com.github.yzqdev.pet_home.client.particle.ParticlePsychicWall;
-import com.github.yzqdev.pet_home.client.particle.ParticleQuestionMark;
-import com.github.yzqdev.pet_home.client.particle.ParticleSimpleBubble;
-import com.github.yzqdev.pet_home.client.particle.ParticleSniff;
-import com.github.yzqdev.pet_home.client.particle.ParticleVampire;
-import com.github.yzqdev.pet_home.client.particle.ParticleZZZ;
+import com.github.yzqdev.pet_home.client.particle.*;
 import com.github.yzqdev.pet_home.client.render.OreColorRegistry;
 import com.github.yzqdev.pet_home.server.entity.HighlightedBlockEntity;
 import com.github.yzqdev.pet_home.server.misc.PHParticleRegistry;
@@ -36,13 +26,14 @@ import java.util.Map;
 @EventBusSubscriber(value = Dist.CLIENT)
 public class ClientGameEvents {
     public static Map<Entity, int[]> shadowPunchRenderData = new HashMap<>();
+
     public static void registerClientListeners(IEventBus iEventBus) {
         iEventBus.addListener(ClientGameEvents::setupParticles);
 
 
     }
 
-    public static  void updateVisualDataForMob(Entity entity, int[] arr) {
+    public static void updateVisualDataForMob(Entity entity, int[] arr) {
         shadowPunchRenderData.put(entity, arr);
     }
 
@@ -62,14 +53,16 @@ public class ClientGameEvents {
         event.registerSpriteSet(PHParticleRegistry.QUESTION_MARK_PARTICLE_TYPE.get(), ParticleQuestionMark.Factory::new);
 //        event.registerSpriteSet(DIParticleRegistry.LANTERN_BUGS.get(), ParticleLanternBugs.Factory::new);
     }
+
     @SubscribeEvent
     public static void onOutlineColor(EventGetOutlineColor event) {
-        if(event.getEntityIn() instanceof HighlightedBlockEntity){
+        if (event.getEntityIn() instanceof HighlightedBlockEntity) {
             event.setColor(OreColorRegistry.getBlockColor(((HighlightedBlockEntity) event.getEntityIn()).getBlockState()));
 
-            event.setResult(EventGetOutlineColor.Result.ALLOW );
+            event.setResult(EventGetOutlineColor.Result.ALLOW);
         }
     }
+
     @SubscribeEvent
     public static void onAttackEntityFromClientEvent(InputEvent.InteractionKeyMappingTriggered event) {
     }

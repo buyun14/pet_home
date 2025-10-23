@@ -20,7 +20,8 @@ public abstract class AdvancedEntityModel<T extends Entity> extends BasicEntityM
     private final Map<String, TextureOffset> modelTextureMap = Maps.newHashMap();
     public int texWidth = 32;
     public int texHeight = 32;
-    public AdvancedEntityModel(){
+
+    public AdvancedEntityModel() {
         super();
     }
 

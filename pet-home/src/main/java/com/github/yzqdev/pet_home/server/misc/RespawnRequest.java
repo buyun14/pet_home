@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 
-
 import java.util.logging.Level;
 
 public class RespawnRequest {
@@ -32,7 +31,7 @@ public class RespawnRequest {
     }
 
     public EntityType getEntityType() {
-        return BuiltInRegistries.ENTITY_TYPE.get ( ResourceLocation.parse(this.entityType));
+        return BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(this.entityType));
     }
 
     public String getDimension() {
@@ -51,7 +50,7 @@ public class RespawnRequest {
         return timestamp;
     }
 
-    public static String processDimension(ResourceKey<Level> key){
+    public static String processDimension(ResourceKey<Level> key) {
         return key.toString();
     }
 

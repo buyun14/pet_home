@@ -1,7 +1,6 @@
 package com.github.yzqdev.pet_home.datagen;
 
 import com.github.yzqdev.pet_home.server.block.PHBlockRegistry;
-
 import com.github.yzqdev.pet_home.server.item.PHItemRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -28,12 +27,12 @@ public class ModItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
         this.tag(ModTags.COLLAR_TAG_tagkey).add(PHItemRegistry.COLLAR_TAG.getKey());
-        this.tag(ModTags.PetBedKey).add(PHBlockRegistry.PetBedItems.values().stream().map(i->i.get()).toArray(Item[]::new));
+        this.tag(ModTags.PetBedKey).add(PHBlockRegistry.PetBedItems.values().stream().map(i -> i.get()).toArray(Item[]::new));
         tag(ItemTags.DURABILITY_ENCHANTABLE).add(PHItemRegistry.NET_LAUNCHER_ITEM.get());
     }
 
     @Override
     public String getName() {
-        return  "mod item tags";
+        return "mod item tags";
     }
 }

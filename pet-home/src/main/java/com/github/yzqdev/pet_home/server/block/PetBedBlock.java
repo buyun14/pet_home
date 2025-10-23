@@ -1,12 +1,8 @@
 package com.github.yzqdev.pet_home.server.block;
 
-import com.github.yzqdev.pet_home.util.TameableUtils;
 import com.github.yzqdev.pet_home.server.misc.PHParticleRegistry;
 import com.github.yzqdev.pet_home.server.misc.PHTagRegistry;
-
-
-
-
+import com.github.yzqdev.pet_home.util.TameableUtils;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -44,27 +40,28 @@ public class PetBedBlock extends BaseEntityBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     private static Random random = new Random();
+
     public PetBedBlock(String variantName, DyeColor color) {
         super(Properties.of().mapColor(color).pushReaction(PushReaction.BLOCK).sound(SoundType.WOOD).strength(0.8F).noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.NORTH));
     }
 
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if(TameableUtils.isTamed(entity) && !entity.getType().is(PHTagRegistry.REFUSES_PET_BEDS) && !level.isClientSide  ){
-           if((entity.tickCount + entity.getId()) % 10 == 0 && random.nextInt(6) == 0){
-               TameableUtils.setPetBedPos((LivingEntity) entity, pos);
-               TameableUtils.setPetBedDimension((LivingEntity) entity, level.dimension().toString());
-               Vec3 look = new Vec3(0, 0, -entity.getBbWidth()).yRot((float)Math.toRadians(180f - entity.getYHeadRot()));
-               Vec3 vec3 = entity.getEyePosition().add(look);
-               Vec3 vec32 = look.scale(0.5F);
-               for (int i = 0; i < 2 + random.nextInt(2); i++){
-                   vec3 = vec3.subtract(vec32);
-                   double d1 = (1.0F - random.nextFloat()) * 0.6F;
-                   double d2 = (1.0F - random.nextFloat()) * 0.6F;
-                   double d3 = (1.0F - random.nextFloat()) * 0.6F;
-                   ((ServerLevel)level).sendParticles(PHParticleRegistry.ZZZ.get(), vec3.x + d1, vec3.y + d2, vec3.z + d3, 1,  0, 0,  0, 0.0D);
-               }
-           }
+        if (TameableUtils.isTamed(entity) && !entity.getType().is(PHTagRegistry.REFUSES_PET_BEDS) && !level.isClientSide) {
+            if ((entity.tickCount + entity.getId()) % 10 == 0 && random.nextInt(6) == 0) {
+                TameableUtils.setPetBedPos((LivingEntity) entity, pos);
+                TameableUtils.setPetBedDimension((LivingEntity) entity, level.dimension().toString());
+                Vec3 look = new Vec3(0, 0, -entity.getBbWidth()).yRot((float) Math.toRadians(180f - entity.getYHeadRot()));
+                Vec3 vec3 = entity.getEyePosition().add(look);
+                Vec3 vec32 = look.scale(0.5F);
+                for (int i = 0; i < 2 + random.nextInt(2); i++) {
+                    vec3 = vec3.subtract(vec32);
+                    double d1 = (1.0F - random.nextFloat()) * 0.6F;
+                    double d2 = (1.0F - random.nextFloat()) * 0.6F;
+                    double d3 = (1.0F - random.nextFloat()) * 0.6F;
+                    ((ServerLevel) level).sendParticles(PHParticleRegistry.ZZZ.get(), vec3.x + d1, vec3.y + d2, vec3.z + d3, 1, 0, 0, 0, 0.0D);
+                }
+            }
         }
         super.entityInside(state, level, pos, entity);
     }

@@ -22,12 +22,13 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        var axe= this.tag(BlockTags.MINEABLE_WITH_AXE);
+        var axe = this.tag(BlockTags.MINEABLE_WITH_AXE);
         for (var item : PHBlockRegistry.PET_BED_BLOCKS.values()) {
-           axe.add(item.get());
+            axe.add(item.get());
         }
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(PHBlockRegistry.WAYWARD_LANTERN.value());
     }
+
     @Override
     public String getName() {
         return "mod  block tags";

@@ -19,25 +19,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({LivingEntity.class})
 public abstract class LivingEntityMixin extends Entity implements IPetbedDataEntity {
     @Unique
-    private static final EntityDataAccessor<CompoundTag>  PET_HOME_SAVED_DATA = SynchedEntityData.defineId(LivingEntityMixin.class, EntityDataSerializers.COMPOUND_TAG);
+    private static final EntityDataAccessor<CompoundTag> PET_HOME_SAVED_DATA = SynchedEntityData.defineId(LivingEntityMixin.class, EntityDataSerializers.COMPOUND_TAG);
 
     protected LivingEntityMixin(EntityType<? extends Entity> entityType, Level world) {
         super(entityType, world);
     }
 
     @Inject(
-        at = {@At("TAIL")},
-        remap = true,
-        method = {"defineSynchedData"}
+            at = {@At("TAIL")},
+            remap = true,
+            method = {"defineSynchedData"}
     )
     private void citadel_registerData(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(PET_HOME_SAVED_DATA, new CompoundTag());
     }
 
     @Inject(
-        at = {@At("TAIL")},
-        remap = true,
-        method = {"addAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V"}
+            at = {@At("TAIL")},
+            remap = true,
+            method = {"addAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V"}
     )
     private void citadel_writeAdditional(CompoundTag compoundNBT, CallbackInfo ci) {
         CompoundTag citadelDat = this.getCitadelEntityData();
@@ -48,9 +48,9 @@ public abstract class LivingEntityMixin extends Entity implements IPetbedDataEnt
     }
 
     @Inject(
-        at = {@At("TAIL")},
-        remap = true,
-        method = {"Lnet/minecraft/world/entity/LivingEntity;readAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V"}
+            at = {@At("TAIL")},
+            remap = true,
+            method = {"Lnet/minecraft/world/entity/LivingEntity;readAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V"}
     )
     private void citadel_readAdditional(CompoundTag compoundNBT, CallbackInfo ci) {
         if (compoundNBT.contains(ModConstants.entitySyncData)) {
@@ -59,10 +59,12 @@ public abstract class LivingEntityMixin extends Entity implements IPetbedDataEnt
 
     }
 
+    @Override
     public CompoundTag getCitadelEntityData() {
-        return (CompoundTag)this.entityData.get(PET_HOME_SAVED_DATA);
+        return (CompoundTag) this.entityData.get(PET_HOME_SAVED_DATA);
     }
 
+    @Override
     public void setCitadelEntityData(CompoundTag nbt) {
         this.entityData.set(PET_HOME_SAVED_DATA, nbt);
     }

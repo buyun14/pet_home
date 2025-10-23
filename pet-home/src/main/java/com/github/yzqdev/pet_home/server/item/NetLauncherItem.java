@@ -167,7 +167,7 @@ public class NetLauncherItem extends Item {
     //helpers
     public static boolean isCaptureMode(ItemStack stack) {
 
-        return (!stack.has(PHDataComponents.RELEASE_MODE))||  Boolean.FALSE.equals(stack.get(PHDataComponents.RELEASE_MODE));
+        return (!stack.has(PHDataComponents.RELEASE_MODE)) || Boolean.FALSE.equals(stack.get(PHDataComponents.RELEASE_MODE));
     }
 
     protected ItemStack findNet(Player player) {

@@ -8,7 +8,7 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DeathMessageType;
 
 public class DamageTypeModifier {
-public static void bootstrap(BootstrapContext<DamageType> bootstrap){
+    public static void bootstrap(BootstrapContext<DamageType> bootstrap) {
 
 
         bootstrap.register(PHDamageTypes.SIPHON, new DamageType("pet_home.siphon",
@@ -18,5 +18,5 @@ public static void bootstrap(BootstrapContext<DamageType> bootstrap){
                 DeathMessageType.DEFAULT));
 
 
-}
+    }
 }

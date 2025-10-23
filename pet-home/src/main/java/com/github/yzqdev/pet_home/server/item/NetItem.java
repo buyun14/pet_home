@@ -143,7 +143,7 @@ public class NetItem extends Item {
             }
         } else {
             super.appendHoverText(stack, context, tooltip, tooltipFlag);
-           tooltip.add(Component.translatable(LangDefinition.ConstantMsg.net_launcher_default_only_tamable).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable(LangDefinition.ConstantMsg.net_launcher_default_only_tamable).withStyle(ChatFormatting.GRAY));
         }
 
     }

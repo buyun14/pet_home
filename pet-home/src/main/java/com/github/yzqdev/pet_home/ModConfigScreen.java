@@ -12,20 +12,20 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ModConfigScreen extends  ConfigurationScreen.ConfigurationSectionScreen{
+public class ModConfigScreen extends ConfigurationScreen.ConfigurationSectionScreen {
     public ModConfigScreen(Screen parent, ModConfig.Type type, ModConfig modConfig, Component title) {
         super(parent, type, modConfig, title);
     }
 
     @Override
-    protected   <T extends Enum<T>> Element createEnumValue(String key, ModConfigSpec.ValueSpec spec, Supplier<T> source, Consumer<T> target) {
+    protected <T extends Enum<T>> Element createEnumValue(String key, ModConfigSpec.ValueSpec spec, Supplier<T> source, Consumer<T> target) {
         final Class<T> clazz = (Class<T>) spec.getClazz();
         assert clazz != null;
 
         final List<T> list = Arrays.stream(clazz.getEnumConstants()).filter(spec::test).toList();
 
         return new Element(getTranslationComponent(key), getTooltipComponent(key, null),
-                new OptionInstance<>(getTranslationKey(key), getTooltip(key, null), (caption, displayvalue) ->   Component.translatable(PetHomeMod.MODID+".configuration." + key + "." + displayvalue.name().toLowerCase()),
+                new OptionInstance<>(getTranslationKey(key), getTooltip(key, null), (caption, displayvalue) -> Component.translatable(PetHomeMod.MODID + ".configuration." + key + "." + displayvalue.name().toLowerCase()),
                         new Custom<>(list), source.get(), newValue -> {
                     // regarding change detection: new value always is different (cycle button)
                     undoManager.add(v -> {

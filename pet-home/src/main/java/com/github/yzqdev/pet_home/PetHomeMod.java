@@ -7,14 +7,8 @@ import com.github.yzqdev.pet_home.server.block.PHTileEntityRegistry;
 import com.github.yzqdev.pet_home.server.entity.PHEntityRegistry;
 import com.github.yzqdev.pet_home.server.entity.PHVillagerRegistry;
 import com.github.yzqdev.pet_home.server.item.PHItemRegistry;
-
-import com.github.yzqdev.pet_home.server.misc.PHCreativeTabRegistry;
-import com.github.yzqdev.pet_home.server.misc.PHPOIRegistry;
-import com.github.yzqdev.pet_home.server.misc.PHParticleRegistry;
-import com.github.yzqdev.pet_home.server.misc.PHSoundRegistry;
-import com.github.yzqdev.pet_home.server.misc.ModEffects;
+import com.github.yzqdev.pet_home.server.misc.*;
 import com.github.yzqdev.pet_home.worldgen.PHVillagePieceRegistry;
-
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;

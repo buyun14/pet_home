@@ -19,7 +19,7 @@ public class CitadelEntityData {
     }
 
     public static void setCitadelTag(LivingEntity entity, CompoundTag tag) {
-        if(entity instanceof IPetbedDataEntity){
+        if (entity instanceof IPetbedDataEntity) {
             ((IPetbedDataEntity) entity).setCitadelEntityData(tag);
         }
     }

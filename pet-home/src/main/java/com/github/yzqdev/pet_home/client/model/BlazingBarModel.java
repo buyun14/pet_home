@@ -32,6 +32,6 @@ public class BlazingBarModel extends AdvancedEntityModel<LivingEntity> {
 
     public void animateBar(float rotY) {
         this.resetToDefaultPose();
-        this.bar.rotateAngleY -= (float)Math.toRadians(rotY);
+        this.bar.rotateAngleY -= (float) Math.toRadians(rotY);
     }
 }

@@ -25,13 +25,13 @@ public class OreColorRegistry {
             return TEXTURES_TO_COLOR.get(blockName).intValue();
         } else {
             int colorizer = -1;
-            try{
+            try {
                 colorizer = Minecraft.getInstance().getBlockColors().getColor(stack, null, null, 0);
-            }catch (Exception e){
+            } catch (Exception e) {
                 PetHomeMod.LOGGER.warn("Another mod did not use block colorizers correctly.");
             }
             int color = 0XFFFFFF;
-            if(colorizer == -1){
+            if (colorizer == -1) {
                 BufferedImage texture = null;
                 try {
                     Color texColour = getAverageColour(getTextureAtlas(stack));
@@ -39,7 +39,7 @@ public class OreColorRegistry {
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 color = colorizer;
             }
             TEXTURES_TO_COLOR.put(blockName, color);
@@ -63,7 +63,7 @@ public class OreColorRegistry {
                 float localRed = image.getPixelRGBA(0, (int) i, (int) j) >> 0 & 0xFF;
                 float localGreen = image.getPixelRGBA(0, (int) i, (int) j) >> 8 & 0xFF;
                 float localBlue = image.getPixelRGBA(0, (int) i, (int) j) >> 16 & 0xFF;
-                if(Math.abs(Math.max(localRed, Math.max(localGreen, localBlue)) - Math.min(localRed, Math.min(localGreen, localBlue))) < 10){
+                if (Math.abs(Math.max(localRed, Math.max(localGreen, localBlue)) - Math.min(localRed, Math.min(localGreen, localBlue))) < 10) {
                     continue;
                 }
                 red += localRed;

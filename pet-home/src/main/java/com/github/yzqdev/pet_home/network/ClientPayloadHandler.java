@@ -3,7 +3,6 @@ package com.github.yzqdev.pet_home.network;
 import com.github.yzqdev.pet_home.ModConstants;
 import com.github.yzqdev.pet_home.util.CitadelEntityData;
 import com.mojang.logging.LogUtils;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -24,13 +23,13 @@ public class ClientPayloadHandler {
 
         context.enqueueWork(() -> {
 
-                 var compound=data.compound();
-                 var entityID=data.entityID();
-                 var propertyID=data.propertyID();
+                    var compound = data.compound();
+                    var entityID = data.entityID();
+                    var propertyID = data.propertyID();
                     if (compound != null && Minecraft.getInstance().level != null) {
                         Entity entity = Minecraft.getInstance().level.getEntity(entityID);
-                        if ((  propertyID.equals(ModConstants.entityDataTagUpdate)) && entity instanceof LivingEntity) {
-                            CitadelEntityData.setCitadelTag((LivingEntity)entity, compound);
+                        if ((propertyID.equals(ModConstants.entityDataTagUpdate)) && entity instanceof LivingEntity) {
+                            CitadelEntityData.setCitadelTag((LivingEntity) entity, compound);
                         }
 
                     }

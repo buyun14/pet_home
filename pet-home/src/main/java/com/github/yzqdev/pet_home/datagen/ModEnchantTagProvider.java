@@ -63,8 +63,6 @@ public class ModEnchantTagProvider extends EnchantmentTagsProvider {
                 .addOptional(ModEnchantments.VIOLENT.location())
 
 
-
-
         ;
         this.tag(EnchantmentTags.IN_ENCHANTING_TABLE)
                 .addOptional(ModEnchantments.AMPHIBIOUS.location())
@@ -99,7 +97,7 @@ public class ModEnchantTagProvider extends EnchantmentTagsProvider {
                 .replace(false)
 
         ;
-this.tag(ModTags.INFUSE_EXTRA).addTag(ModTags.TradableEnchantmentKey);
+        this.tag(ModTags.INFUSE_EXTRA).addTag(ModTags.TradableEnchantmentKey);
     }
 
     @Override

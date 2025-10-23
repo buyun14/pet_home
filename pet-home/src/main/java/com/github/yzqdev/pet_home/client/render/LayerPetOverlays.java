@@ -28,7 +28,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
-
 import net.neoforged.neoforge.client.NeoForgeRenderTypes;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -46,8 +45,8 @@ public class LayerPetOverlays extends RenderLayer {
     private static final Vec3[] CLOUD_SCALES = new Vec3[CLOUD_COUNT];
     private static final ShadowHandModel SHADOW_HAND_MODEL = new ShadowHandModel();
     private static final BlazingBarModel BLAZING_BAR_MODEL = new BlazingBarModel();
-    private static final ResourceLocation BLAZE_TEXTURE =  ResourceLocation.withDefaultNamespace("textures/entity/blaze.png");
-    private static final ResourceLocation AURA_TEXTURE =   ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "textures/healing_aura.png");
+    private static final ResourceLocation BLAZE_TEXTURE = ResourceLocation.withDefaultNamespace("textures/entity/blaze.png");
+    private static final ResourceLocation AURA_TEXTURE = ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "textures/healing_aura.png");
     private static final Map<ResourceLocation, Integer> MODELS_TO_XSIZE = new HashMap<>();
     private static final Map<ResourceLocation, Integer> MODELS_TO_YSIZE = new HashMap<>();
 
@@ -80,8 +79,8 @@ public class LayerPetOverlays extends RenderLayer {
         float f5 = p_174310_ * f;
         float f6 = p_174311_ < 0.0F ? p_174311_ * f * f : p_174311_ - p_174311_ * (1.0F - f) * (1.0F - f);
         float f7 = p_174312_ * f;
-        p_174308_.addVertex(p_174309_, f5 - p_174319_, f6 + p_174318_, f7 + p_174320_).setColor(f2, f3, f4, 1.0F).setUv2(k,k) ;
-        p_174308_.addVertex(p_174309_, f5 + p_174319_, f6 + p_174317_ - p_174318_, f7 - p_174320_).setColor(f2, f3, f4, 1.0F).setUv2(k,k) ;
+        p_174308_.addVertex(p_174309_, f5 - p_174319_, f6 + p_174318_, f7 + p_174320_).setColor(f2, f3, f4, 1.0F).setUv2(k, k);
+        p_174308_.addVertex(p_174309_, f5 + p_174319_, f6 + p_174317_ - p_174318_, f7 - p_174320_).setColor(f2, f3, f4, 1.0F).setUv2(k, k);
     }
 
     public static <E extends Entity> void renderShadowString(Entity from, Vec3 fromVec, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, Vec3 to) {
@@ -110,7 +109,7 @@ public class LayerPetOverlays extends RenderLayer {
     }
 
     private static void vertex(VertexConsumer p_114090_, Matrix4f p_114091_, PoseStack.Pose p_114092_, int p_114093_, float p_114094_, int p_114095_, int p_114096_, int p_114097_, float alpha) {
-        p_114090_.addVertex(p_114091_, p_114094_ - 0.5F, (float) p_114095_ - 0.5F, 0.0F).setColor(255, 255, 255, alpha * 255).setUv((float) p_114096_, (float) p_114097_).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(p_114093_,p_114093_).setNormal(p_114092_, 0.0F, 1.0F, 0.0F) ;
+        p_114090_.addVertex(p_114091_, p_114094_ - 0.5F, (float) p_114095_ - 0.5F, 0.0F).setColor(255, 255, 255, alpha * 255).setUv((float) p_114096_, (float) p_114097_).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(p_114093_, p_114093_).setNormal(p_114092_, 0.0F, 1.0F, 0.0F);
     }
 
     @Override
@@ -197,7 +196,7 @@ public class LayerPetOverlays extends RenderLayer {
                 matrixStackIn.popPose();
             }
 
-            int shadowHandCount = TameableUtils.getEnchantLevel(living,ModEnchantments.SHADOW_HANDS);
+            int shadowHandCount = TameableUtils.getEnchantLevel(living, ModEnchantments.SHADOW_HANDS);
             if (shadowHandCount > 0) {
                 Entity punching = TameableUtils.getPetAttackTarget(living);
                 double d0 = 0;
@@ -237,7 +236,7 @@ public class LayerPetOverlays extends RenderLayer {
                     matrixStackIn.pushPose();
                     matrixStackIn.translate(0, -1.15F, -0.15F);
                     SHADOW_HAND_MODEL.animateShadowHand(punch, i, shadowHandCount, realAge);
-                    SHADOW_HAND_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, packedLightIn, LivingEntityRenderer.getOverlayCoords((LivingEntity) entity, 0) );
+                    SHADOW_HAND_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, packedLightIn, LivingEntityRenderer.getOverlayCoords((LivingEntity) entity, 0));
                     matrixStackIn.popPose();
                     matrixStackIn.popPose();
                     matrixStackIn.pushPose();

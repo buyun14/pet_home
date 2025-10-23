@@ -4,7 +4,6 @@ package com.github.yzqdev.pet_home.server.entity;
 import com.github.yzqdev.pet_home.server.misc.PHParticleRegistry;
 import com.github.yzqdev.pet_home.server.misc.PHSoundRegistry;
 import net.minecraft.nbt.CompoundTag;
-
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -28,25 +27,27 @@ public class GiantBubbleEntity extends Entity {
     }
 
 
-
-    public void tick(){
+    @Override
+    public void tick() {
         super.tick();
         double d = this.isInWater() ? 0.2D : 0.08D;
         this.move(MoverType.SELF, new Vec3(0, d, 0));
-        if(getPopsIn() <= 0){
+        if (getPopsIn() <= 0) {
             pop();
-        }else{
+        } else {
             this.setpopsIn(this.getPopsIn() - 1);
             this.level().addParticle(PHParticleRegistry.SIMPLE_BUBBLE.get(), this.getRandomX(1.4F), this.getRandomY(), this.getRandomZ(1.4F), (random.nextFloat() - 0.5F) * 0.3F, -0.1F, (random.nextFloat() - 0.5F) * 0.3F);
         }
     }
 
+    @Override
     public void positionRider(Entity entity, MoveFunction moveFunction) {
         moveFunction.accept(entity, this.getX(), this.getBoundingBox().minY - 0.1, this.getZ());
     }
 
+    @Override
     public boolean hurt(DamageSource source, float f) {
-        if(source.is(DamageTypeTags.IS_PROJECTILE) && f > 0 || source.is(DamageTypes.FELL_OUT_OF_WORLD)){
+        if (source.is(DamageTypeTags.IS_PROJECTILE) && f > 0 || source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
             this.pop();
             return true;
         }
@@ -55,13 +56,14 @@ public class GiantBubbleEntity extends Entity {
 
     private void pop() {
         this.playSound(PHSoundRegistry.GIANT_BUBBLE_POP.get(), 1.0F, 1.5F);
-        if(!level().isClientSide){
-            ((ServerLevel)this.level()).sendParticles(PHParticleRegistry.GIANT_POP.get(), this.getX(), this.getY() + this.getBbHeight() * 0.5F, this.getZ(), 1, 0, 0, 0, 0);
+        if (!level().isClientSide) {
+            ((ServerLevel) this.level()).sendParticles(PHParticleRegistry.GIANT_POP.get(), this.getX(), this.getY() + this.getBbHeight() * 0.5F, this.getZ(), 1, 0, 0, 0, 0);
         }
         this.ejectPassengers();
         this.discard();
     }
 
+    @Override
     public boolean isNoGravity() {
         return true;
     }
@@ -71,7 +73,6 @@ public class GiantBubbleEntity extends Entity {
         builder.define(POPS_IN, 20);
 
     }
-
 
 
     @Override
@@ -93,8 +94,8 @@ public class GiantBubbleEntity extends Entity {
     }
 
 
-
-    public boolean shouldRiderSit(){
+    @Override
+    public boolean shouldRiderSit() {
         return false;
     }
 }

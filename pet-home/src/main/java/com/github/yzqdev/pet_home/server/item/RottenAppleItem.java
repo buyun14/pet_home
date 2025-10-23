@@ -26,31 +26,34 @@ import java.util.List;
 public class RottenAppleItem extends Item {
 
     public RottenAppleItem() {
-        super(new Properties().food((new FoodProperties.Builder()).nutrition(3).saturationModifier(0.3f).effect(()->new MobEffectInstance(MobEffects.POISON, 100, 1), 1.0F).build()));
+        super(new Properties().food((new FoodProperties.Builder()).nutrition(3).saturationModifier(0.3f).effect(() -> new MobEffectInstance(MobEffects.POISON, 100, 1), 1.0F).build()));
     }
+
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("tooltips.pet_home.substitute_rotten_apple.desc").withStyle(ChatFormatting.GREEN));
 
     }
-@Override
+
+    @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-        if(entity.getType() == EntityType.HORSE && EventHooks.canLivingConvert(entity, EntityType.ZOMBIE_HORSE, (timer) -> {})){
+        if (entity.getType() == EntityType.HORSE && EventHooks.canLivingConvert(entity, EntityType.ZOMBIE_HORSE, (timer) -> {
+        })) {
             player.swing(hand);
-            Horse horse = (Horse)entity;
+            Horse horse = (Horse) entity;
             horse.playSound(SoundEvents.HORSE_DEATH, 0.8F, horse.getVoicePitch());
             horse.playSound(SoundEvents.ZOMBIE_INFECT, 0.8F, horse.getVoicePitch());
             CompoundTag horseExtras = new CompoundTag();
-            if(!horse.getBodyArmorItem().isEmpty()){
+            if (!horse.getBodyArmorItem().isEmpty()) {
                 horse.spawnAtLocation(horse.getBodyArmorItem().copy());
                 horse.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
             }
             horse.addAdditionalSaveData(horseExtras);
-            for(int i = 0; i < 6 + horse.getRandom().nextInt(5); i++){
+            for (int i = 0; i < 6 + horse.getRandom().nextInt(5); i++) {
                 horse.level().addParticle(ParticleTypes.SNEEZE, horse.getRandomX(1.0F), horse.getRandomY(), horse.getRandomZ(1.0F), 0F, 0F, 0F);
             }
             ZombieHorse zombie = EntityType.ZOMBIE_HORSE.create(horse.level());
-            if(horse.isLeashed()){
+            if (horse.isLeashed()) {
                 zombie.setLeashedTo(horse.getLeashHolder(), true);
             }
             zombie.moveTo(horse.getX(), horse.getY(), horse.getZ(), horse.getYRot(), horse.getXRot());
@@ -65,7 +68,7 @@ public class RottenAppleItem extends Item {
             EventHooks.onLivingConvert(horse, zombie);
             player.level().addFreshEntity(zombie);
             horse.discard();
-            if(!player.isCreative()){
+            if (!player.isCreative()) {
                 stack.shrink(1);
             }
             return InteractionResult.CONSUME;

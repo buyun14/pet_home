@@ -1,13 +1,10 @@
 package com.github.yzqdev.pet_home.client.render;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Vector4f;
+
+import java.util.*;
 
 public class LightningBoltData {
     private final Random random;
@@ -22,7 +19,7 @@ public class LightningBoltData {
     private FadeFunction fadeFunction;
 
     public LightningBoltData(Vec3 start, Vec3 end) {
-        this(LightningBoltData.BoltRenderInfo.DEFAULT, start, end, (int)Math.sqrt(start.distanceTo(end) * (double)100.0F));
+        this(LightningBoltData.BoltRenderInfo.DEFAULT, start, end, (int) Math.sqrt(start.distanceTo(end) * (double) 100.0F));
     }
 
     public LightningBoltData(BoltRenderInfo info, Vec3 start, Vec3 end, int segments) {
@@ -82,16 +79,16 @@ public class LightningBoltData {
     public List<BoltQuads> generate() {
         List<BoltQuads> quads = new ArrayList();
         Vec3 diff = this.end.subtract(this.start);
-        float totalDistance = (float)diff.length();
+        float totalDistance = (float) diff.length();
 
-        for(int i = 0; i < this.count; ++i) {
+        for (int i = 0; i < this.count; ++i) {
             LinkedList<BoltInstructions> drawQueue = new LinkedList();
-            drawQueue.add(new BoltInstructions(this.start, 0.0F, new Vec3((double)0.0F, (double)0.0F, (double)0.0F), (QuadCache)null, false));
+            drawQueue.add(new BoltInstructions(this.start, 0.0F, new Vec3((double) 0.0F, (double) 0.0F, (double) 0.0F), (QuadCache) null, false));
 
-            while(!drawQueue.isEmpty()) {
-                BoltInstructions data = (BoltInstructions)drawQueue.poll();
+            while (!drawQueue.isEmpty()) {
+                BoltInstructions data = (BoltInstructions) drawQueue.poll();
                 Vec3 perpendicularDist = data.perpendicularDist;
-                float progress = data.progress + 1.0F / (float)this.segments * (1.0F - this.renderInfo.parallelNoise + this.random.nextFloat() * this.renderInfo.parallelNoise * 2.0F);
+                float progress = data.progress + 1.0F / (float) this.segments * (1.0F - this.renderInfo.parallelNoise + this.random.nextFloat() * this.renderInfo.parallelNoise * 2.0F);
                 Vec3 segmentEnd;
                 if (progress >= 1.0F) {
                     segmentEnd = this.end;
@@ -100,24 +97,24 @@ public class LightningBoltData {
                     float maxDiff = this.renderInfo.spreadFactor * segmentDiffScale * totalDistance * this.renderInfo.randomFunction.getRandom(this.random);
                     Vec3 randVec = findRandomOrthogonalVector(diff, this.random);
                     perpendicularDist = this.renderInfo.segmentSpreader.getSegmentAdd(perpendicularDist, randVec, maxDiff, segmentDiffScale, progress);
-                    segmentEnd = this.start.add(diff.scale((double)progress)).add(perpendicularDist);
+                    segmentEnd = this.start.add(diff.scale((double) progress)).add(perpendicularDist);
                 }
 
                 float boltSize = this.size * (0.5F + (1.0F - progress) * 0.5F);
                 Pair<BoltQuads, QuadCache> quadData = this.createQuads(data.cache, data.start, segmentEnd, boltSize);
-                quads.add((BoltQuads)quadData.getLeft());
+                quads.add((BoltQuads) quadData.getLeft());
                 if (segmentEnd == this.end) {
                     break;
                 }
 
                 if (!data.isBranch) {
-                    drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, (QuadCache)quadData.getRight(), false));
+                    drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, (QuadCache) quadData.getRight(), false));
                 } else if (this.random.nextFloat() < this.renderInfo.branchContinuationFactor) {
-                    drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, (QuadCache)quadData.getRight(), true));
+                    drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, (QuadCache) quadData.getRight(), true));
                 }
 
-                while(this.random.nextFloat() < this.renderInfo.branchInitiationFactor * (1.0F - progress)) {
-                    drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, (QuadCache)quadData.getRight(), true));
+                while (this.random.nextFloat() < this.renderInfo.branchInitiationFactor * (1.0F - progress)) {
+                    drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, (QuadCache) quadData.getRight(), true));
                 }
             }
         }
@@ -126,15 +123,15 @@ public class LightningBoltData {
     }
 
     private static Vec3 findRandomOrthogonalVector(Vec3 vec, Random rand) {
-        Vec3 newVec = new Vec3((double)-0.5F + rand.nextDouble(), (double)-0.5F + rand.nextDouble(), (double)-0.5F + rand.nextDouble());
+        Vec3 newVec = new Vec3((double) -0.5F + rand.nextDouble(), (double) -0.5F + rand.nextDouble(), (double) -0.5F + rand.nextDouble());
         return vec.cross(newVec).normalize();
     }
 
     private Pair<BoltQuads, QuadCache> createQuads(QuadCache cache, Vec3 startPos, Vec3 end, float size) {
         Vec3 diff = end.subtract(startPos);
-        Vec3 rightAdd = diff.cross(new Vec3((double)0.5F, (double)0.5F, (double)0.5F)).normalize().scale((double)size);
-        Vec3 backAdd = diff.cross(rightAdd).normalize().scale((double)size);
-        Vec3 rightAddSplit = rightAdd.scale((double)0.5F);
+        Vec3 rightAdd = diff.cross(new Vec3((double) 0.5F, (double) 0.5F, (double) 0.5F)).normalize().scale((double) size);
+        Vec3 backAdd = diff.cross(rightAdd).normalize().scale((double) size);
+        Vec3 rightAddSplit = rightAdd.scale((double) 0.5F);
         Vec3 start = cache != null ? cache.prevEnd : startPos;
         Vec3 startRight = cache != null ? cache.prevEndRight : start.add(rightAdd);
         Vec3 startBack = cache != null ? cache.prevEndBack : start.add(rightAddSplit).add(backAdd);
@@ -191,27 +188,27 @@ public class LightningBoltData {
     public interface SpreadFunction {
         SpreadFunction LINEAR_ASCENT = (progress) -> progress;
         SpreadFunction LINEAR_ASCENT_DESCENT = (progress) -> (progress - Math.max(0.0F, 2.0F * progress - 1.0F)) / 0.5F;
-        SpreadFunction SINE = (progress) -> (float)Math.sin(Math.PI * (double)progress);
+        SpreadFunction SINE = (progress) -> (float) Math.sin(Math.PI * (double) progress);
 
         float getMaxSpread(float var1);
     }
 
     public interface RandomFunction {
         RandomFunction UNIFORM = Random::nextFloat;
-        RandomFunction GAUSSIAN = (rand) -> (float)rand.nextGaussian();
+        RandomFunction GAUSSIAN = (rand) -> (float) rand.nextGaussian();
 
         float getRandom(Random var1);
     }
 
     public interface SegmentSpreader {
-        SegmentSpreader NO_MEMORY = (perpendicularDist, randVec, maxDiff, scale, progress) -> randVec.scale((double)maxDiff);
+        SegmentSpreader NO_MEMORY = (perpendicularDist, randVec, maxDiff, scale, progress) -> randVec.scale((double) maxDiff);
 
         static SegmentSpreader memory(float memoryFactor) {
             return (perpendicularDist, randVec, maxDiff, spreadScale, progress) -> {
                 float nextDiff = maxDiff * (1.0F - memoryFactor);
-                Vec3 cur = randVec.scale((double)nextDiff);
+                Vec3 cur = randVec.scale((double) nextDiff);
                 if (progress > 0.5F) {
-                    cur = cur.add(perpendicularDist.scale((double)(-1.0F * (1.0F - spreadScale))));
+                    cur = cur.add(perpendicularDist.scale((double) (-1.0F * (1.0F - spreadScale))));
                 }
 
                 return perpendicularDist.add(cur);
@@ -245,7 +242,7 @@ public class LightningBoltData {
 
         default float getSpawnDelay(Random rand) {
             Pair<Float, Float> bounds = this.getSpawnDelayBounds(rand);
-            return (Float)bounds.getLeft() + ((Float)bounds.getRight() - (Float)bounds.getLeft()) * rand.nextFloat();
+            return (Float) bounds.getLeft() + ((Float) bounds.getRight() - (Float) bounds.getLeft()) * rand.nextFloat();
         }
 
         default boolean isConsecutive() {
@@ -258,8 +255,8 @@ public class LightningBoltData {
 
         static FadeFunction fade(float fade) {
             return (totalBolts, lifeScale) -> {
-                int start = lifeScale > 1.0F - fade ? (int)((float)totalBolts * (lifeScale - (1.0F - fade)) / fade) : 0;
-                int end = lifeScale < fade ? (int)((float)totalBolts * (lifeScale / fade)) : totalBolts;
+                int start = lifeScale > 1.0F - fade ? (int) ((float) totalBolts * (lifeScale - (1.0F - fade)) / fade) : 0;
+                int end = lifeScale < fade ? (int) ((float) totalBolts * (lifeScale / fade)) : totalBolts;
                 return Pair.of(start, end);
             };
         }

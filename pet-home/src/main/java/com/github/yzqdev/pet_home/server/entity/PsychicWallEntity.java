@@ -1,6 +1,6 @@
 package com.github.yzqdev.pet_home.server.entity;
 
- 
+
 import com.github.yzqdev.pet_home.server.misc.PHParticleRegistry;
 import com.github.yzqdev.pet_home.server.misc.PHSoundRegistry;
 import com.github.yzqdev.pet_home.util.TameableUtils;
@@ -21,7 +21,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
- 
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -41,7 +40,6 @@ public class PsychicWallEntity extends Entity {
         super(type, level);
     }
 
- 
 
     public void tick() {
         super.tick();
@@ -147,7 +145,6 @@ public class PsychicWallEntity extends Entity {
         builder.define(DIRECTION, Direction.UP);
     }
 
- 
 
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
@@ -275,6 +272,6 @@ public class PsychicWallEntity extends Entity {
 
     public boolean isSameTeam(Entity entity) {
         Entity owner = this.getCreator();
-        return owner instanceof LivingEntity && (TameableUtils.hasSameOwnerAs((LivingEntity)owner, entity) || owner.isAlliedTo(entity));
+        return owner instanceof LivingEntity && (TameableUtils.hasSameOwnerAs((LivingEntity) owner, entity) || owner.isAlliedTo(entity));
     }
 }

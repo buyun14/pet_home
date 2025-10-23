@@ -3,27 +3,14 @@ package com.github.yzqdev.pet_home.server;
 import com.github.yzqdev.pet_home.PetHomeConfig;
 import com.github.yzqdev.pet_home.PetHomeMod;
 import com.github.yzqdev.pet_home.client.ClientGameEvents;
+import com.github.yzqdev.pet_home.datagen.ModEnchantments;
 import com.github.yzqdev.pet_home.server.block.PetBedBlock;
 import com.github.yzqdev.pet_home.server.block.PetBedBlockEntity;
-import com.github.yzqdev.pet_home.datagen.ModEnchantments;
-
+import com.github.yzqdev.pet_home.server.entity.*;
 import com.github.yzqdev.pet_home.server.item.NetItem;
-import com.github.yzqdev.pet_home.server.item.Type;
-import com.github.yzqdev.pet_home.server.entity.ChainLightningEntity;
-import com.github.yzqdev.pet_home.server.entity.PHEntityRegistry;
-import com.github.yzqdev.pet_home.server.entity.PHVillagerRegistry;
-import com.github.yzqdev.pet_home.server.entity.GiantBubbleEntity;
-import com.github.yzqdev.pet_home.server.entity.PsychicWallEntity;
-import com.github.yzqdev.pet_home.server.entity.RecallBallEntity;
 import com.github.yzqdev.pet_home.server.item.PHItemRegistry;
-
-import com.github.yzqdev.pet_home.server.misc.PHDamageTypes;
-import com.github.yzqdev.pet_home.server.misc.PHParticleRegistry;
-import com.github.yzqdev.pet_home.server.misc.PHSoundRegistry;
-import com.github.yzqdev.pet_home.server.misc.PHWorldData;
-import com.github.yzqdev.pet_home.server.misc.LanternRequest;
-import com.github.yzqdev.pet_home.server.misc.ModEffects;
-import com.github.yzqdev.pet_home.server.misc.RespawnRequest;
+import com.github.yzqdev.pet_home.server.item.Type;
+import com.github.yzqdev.pet_home.server.misc.*;
 import com.github.yzqdev.pet_home.server.misc.trades.BuyingItemTrade;
 import com.github.yzqdev.pet_home.server.misc.trades.EnchantItemTrade;
 import com.github.yzqdev.pet_home.server.misc.trades.SellingItemTrade;
@@ -31,7 +18,6 @@ import com.github.yzqdev.pet_home.server.misc.trades.SellingRandomEnchantedBook;
 import com.github.yzqdev.pet_home.util.FriendlyFireCommon;
 import com.github.yzqdev.pet_home.util.LivingUtils;
 import com.github.yzqdev.pet_home.util.TameableUtils;
-
 import com.github.yzqdev.pet_home.worldgen.VillageHouseManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
@@ -45,7 +31,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
@@ -86,7 +71,6 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.*;
 import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
@@ -104,11 +88,7 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import org.antlr.v4.runtime.misc.Triple;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -1243,13 +1223,14 @@ public class ServerProxy {
 
     /**
      * show enchantment description
+     *
      * @param event
      */
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         var tooltip = event.getToolTip();
         var stack = event.getItemStack();
-        if (!ModList.get().isLoaded("enchdesc")&& !stack.isEmpty() && stack.getItem() instanceof EnchantedBookItem) {
+        if (!ModList.get().isLoaded("enchdesc") && !stack.isEmpty() && stack.getItem() instanceof EnchantedBookItem) {
             var enchantments = stack.get(DataComponents.STORED_ENCHANTMENTS);
             if (enchantments != null && !enchantments.isEmpty()) {
                 for (Holder<Enchantment> enchantmentHolder : enchantments.keySet()) {

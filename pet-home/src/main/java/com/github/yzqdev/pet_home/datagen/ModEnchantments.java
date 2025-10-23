@@ -89,7 +89,8 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> PARALYSIS = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "paralysis"));
     public static final ResourceKey<Enchantment> TOUGH = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "tough"));  public static final ResourceKey<Enchantment> VIOLENT = ResourceKey.create(Registries.ENCHANTMENT,
+            ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "tough"));
+    public static final ResourceKey<Enchantment> VIOLENT = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "violent"));
 
 
@@ -414,7 +415,8 @@ public class ModEnchantments {
                 Enchantment.dynamicCost(4, 7),
                 Enchantment.dynamicCost(25, 7),
                 2))
-        );        register(context, VIOLENT, Enchantment.enchantment(Enchantment.definition(
+        );
+        register(context, VIOLENT, Enchantment.enchantment(Enchantment.definition(
                 items.getOrThrow(ModTags.COLLAR_TAG_tagkey),
                 5,
                 1,

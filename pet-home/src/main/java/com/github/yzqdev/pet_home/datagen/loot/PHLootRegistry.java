@@ -12,5 +12,5 @@ public class PHLootRegistry {
 
     public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> DEF_REG = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, PetHomeMod.MODID);
 
-    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<PHLootModifier>> LOOT_FRAGMENT = DEF_REG.register("ph_loot_modifier", ()-> PHLootModifier.CODEC);
+    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<PHLootModifier>> LOOT_FRAGMENT = DEF_REG.register("ph_loot_modifier", () -> PHLootModifier.CODEC);
 }

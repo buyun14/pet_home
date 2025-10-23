@@ -1,6 +1,6 @@
 package com.github.yzqdev.pet_home.server.misc;
 
- 
+
 import com.github.yzqdev.pet_home.PetHomeMod;
 import com.github.yzqdev.pet_home.datagen.ModEnchantments;
 import com.github.yzqdev.pet_home.server.item.CustomTabBehavior;
@@ -24,22 +24,24 @@ import java.util.Optional;
 public class PHCreativeTabRegistry {
 
     public static final DeferredRegister<CreativeModeTab> DEF_REG = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PetHomeMod.MODID);
+
     private static void addEnchantmentBook(Optional<Holder.Reference<Enchantment>> holder, CreativeModeTab.Output output) {
         holder.ifPresent(ref -> {
             EnchantmentInstance instance = new EnchantmentInstance(ref, ref.value().getMaxLevel());
             output.accept(EnchantedBookItem.createForEnchantment(instance));
         });
     }
-    public static final DeferredHolder<CreativeModeTab,CreativeModeTab> TAB = DEF_REG.register(PetHomeMod.MODID, () -> CreativeModeTab.builder()
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = DEF_REG.register(PetHomeMod.MODID, () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + PetHomeMod.MODID))
             .icon(() -> new ItemStack(PHItemRegistry.COLLAR_TAG.get()))
             .displayItems((enabledFeatures, output) -> {
-                var excludeItems= List.of(PHItemRegistry.NET_HAS_ITEM.getId());
+                var excludeItems = List.of(PHItemRegistry.NET_HAS_ITEM.getId());
                 for (var item : PHItemRegistry.DEF_REG.getEntries()) {
                     if (item.get() instanceof CustomTabBehavior customTabBehavior) {
                         customTabBehavior.fillItemCategory(output);
                     } else {
-                        if (!excludeItems.contains(item.getId())){
+                        if (!excludeItems.contains(item.getId())) {
                             output.accept(item.get());
                         }
 
@@ -47,10 +49,10 @@ public class PHCreativeTabRegistry {
                 }
                 enabledFeatures.holders().lookup(Registries.ENCHANTMENT).ifPresent(reg -> {
                     try {
-                        for (Field f :ModEnchantments.class.getDeclaredFields()){
-                            Object obj=null;
-                            obj=f.get(null);
-                            if (obj instanceof ResourceKey  key  ){
+                        for (Field f : ModEnchantments.class.getDeclaredFields()) {
+                            Object obj = null;
+                            obj = f.get(null);
+                            if (obj instanceof ResourceKey key) {
                                 addEnchantmentBook(reg.get(key), output);
                             }
 

@@ -5,7 +5,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 
 public class DrunkEffect extends MobEffect {
     public DrunkEffect(MobEffectCategory type, int color, boolean isInstant) {
-        super(type, color );
+        super(type, color);
     }
 
 
@@ -13,14 +13,12 @@ public class DrunkEffect extends MobEffect {
     public boolean shouldApplyEffectTickThisTick(int tick, int amp) {
         if (tick % 5 == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-
-
-
+    @Override
     public boolean isBeneficial() {
         return false;
     }

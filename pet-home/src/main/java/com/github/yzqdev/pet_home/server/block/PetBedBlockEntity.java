@@ -1,10 +1,10 @@
 package com.github.yzqdev.pet_home.server.block;
 
 
-import com.github.yzqdev.pet_home.util.TameableUtils;
 import com.github.yzqdev.pet_home.server.misc.PHWorldData;
 import com.github.yzqdev.pet_home.server.misc.RespawnRequest;
 import com.github.yzqdev.pet_home.util.IComandableMob;
+import com.github.yzqdev.pet_home.util.TameableUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -28,26 +28,26 @@ public class PetBedBlockEntity extends BlockEntity {
 
     public static void tick(Level level, BlockPos pos, BlockState state, PetBedBlockEntity blockEntity) {
         long time = level.dayTime() % 24000L;
-        if(time == 1){
+        if (time == 1) {
             PHWorldData data = PHWorldData.get(level);
-            if(data != null){
-               List<RespawnRequest> requestList = data.getRespawnRequestsFor(level, pos);
-               for(RespawnRequest request : requestList){
-                    if(addAndRemoveEntity(level, pos, state.getValue(PetBedBlock.FACING), request)){
+            if (data != null) {
+                List<RespawnRequest> requestList = data.getRespawnRequestsFor(level, pos);
+                for (RespawnRequest request : requestList) {
+                    if (addAndRemoveEntity(level, pos, state.getValue(PetBedBlock.FACING), request)) {
                         data.removeRespawnRequest(request);
                     }
-               }
+                }
             }
         }
     }
 
-    public void removeAllRequestsFor(@Nullable Player message){
+    public void removeAllRequestsFor(@Nullable Player message) {
         PHWorldData data = PHWorldData.get(level);
-        if(data != null){
+        if (data != null) {
             List<RespawnRequest> requestList = data.getRespawnRequestsFor(level, this.getBlockPos());
-            for(RespawnRequest request : requestList){
+            for (RespawnRequest request : requestList) {
                 data.removeRespawnRequest(request);
-                if(message != null){
+                if (message != null) {
                     message.displayClientMessage(Component.translatable("message.pet_home.goodbye", request.getNametag()), false);
                 }
             }
@@ -56,16 +56,16 @@ public class PetBedBlockEntity extends BlockEntity {
 
     private static boolean addAndRemoveEntity(Level level, BlockPos pos, Direction dir, RespawnRequest request) {
         EntityType type = request.getEntityType();
-        if(type != null  ){
+        if (type != null) {
             Entity entity = type.create(level);
-            if(entity instanceof LivingEntity living){
+            if (entity instanceof LivingEntity living) {
                 living.readAdditionalSaveData(request.getEntityData());
                 living.setPos(Vec3.upFromBottomCenterOf(pos, 0.8F));
                 living.setHealth(living.getMaxHealth());
-                if(!request.getNametag().isEmpty()){
+                if (!request.getNametag().isEmpty()) {
                     living.setCustomName(Component.translatable(request.getNametag()));
                 }
-                switch (dir){
+                switch (dir) {
                     case NORTH:
                         living.setYRot(180);
                         break;
@@ -79,16 +79,16 @@ public class PetBedBlockEntity extends BlockEntity {
                         living.setYRot(90);
                         break;
                 }
-                if(living instanceof IComandableMob){
+                if (living instanceof IComandableMob) {
                     ((IComandableMob) living).setCommand(1);
                 }
-                if(living instanceof TamableAnimal){
-                    ((TamableAnimal)living).setOrderedToSit(true);
+                if (living instanceof TamableAnimal) {
+                    ((TamableAnimal) living).setOrderedToSit(true);
                 }
                 level.addFreshEntity(living);
                 Entity owner = TameableUtils.getOwnerOf(entity);
-                if(owner instanceof Player){
-                    ((Player)owner).displayClientMessage(Component.translatable("message.pet_home.respawn", entity.getName()), false);
+                if (owner instanceof Player) {
+                    ((Player) owner).displayClientMessage(Component.translatable("message.pet_home.respawn", entity.getName()), false);
                 }
                 return true;
             }
@@ -97,12 +97,12 @@ public class PetBedBlockEntity extends BlockEntity {
     }
 
     public void resetBedsForNearbyPets() {
-        Predicate<Entity> pet = (animal) -> TameableUtils.isTamed(animal) && TameableUtils.getPetBedPos((LivingEntity)animal) != null && TameableUtils.getPetBedPos((LivingEntity)animal).equals(this.getBlockPos());
+        Predicate<Entity> pet = (animal) -> TameableUtils.isTamed(animal) && TameableUtils.getPetBedPos((LivingEntity) animal) != null && TameableUtils.getPetBedPos((LivingEntity) animal).equals(this.getBlockPos());
         List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, new AABB(this.getBlockPos().offset(-10, -5, -10).getCenter(), this.getBlockPos().offset(10, 5, 10).getCenter()), EntitySelector.NO_SPECTATORS.and(pet));
-        for (LivingEntity entity : list){
+        for (LivingEntity entity : list) {
             Entity owner = TameableUtils.getOwnerOf(entity);
-            if(owner instanceof Player){
-                ((Player)owner).displayClientMessage(Component.translatable("message.pet_home.remove_respawn", entity.getName()), false);
+            if (owner instanceof Player) {
+                ((Player) owner).displayClientMessage(Component.translatable("message.pet_home.remove_respawn", entity.getName()), false);
                 TameableUtils.removePetBedPos(entity);
             }
         }

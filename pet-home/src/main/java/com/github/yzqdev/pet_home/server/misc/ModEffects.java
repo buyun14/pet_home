@@ -9,7 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, PetHomeMod.MODID);
-    public static DeferredHolder<MobEffect,MobEffect> DRUNK = EFFECTS.register("drunk", () -> {
+    public static DeferredHolder<MobEffect, MobEffect> DRUNK = EFFECTS.register("drunk", () -> {
         return new DrunkEffect(MobEffectCategory.HARMFUL, 6684723, false);
     });
 

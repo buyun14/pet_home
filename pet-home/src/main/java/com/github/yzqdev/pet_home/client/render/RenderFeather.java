@@ -29,19 +29,18 @@ public class RenderFeather extends EntityRenderer<FeatherEntity> {
     }
 
     @Override
-    public void render(FeatherEntity entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int light)
-    {
+    public void render(FeatherEntity entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int light) {
         super.render(entity, yaw, partialTicks, poseStack, buffer, light);
         Player player = entity.getPlayerOwner();
         poseStack.pushPose();
         poseStack.translate(0, 0.1F, 0);
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
-        poseStack.mulPose(new Quaternionf().rotateZ(35F * ((float)Math.PI / 180F)));
+        poseStack.mulPose(new Quaternionf().rotateZ(35F * ((float) Math.PI / 180F)));
         Minecraft.getInstance().getItemRenderer().renderStatic(feather, ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.level(), entity.getId());
         poseStack.popPose();
 
         //fishng rod stuff
-        if(player != null) {
+        if (player != null) {
             poseStack.pushPose();
 
             int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
@@ -62,7 +61,7 @@ public class RenderFeather extends EntityRenderer<FeatherEntity> {
             double d6;
             float f3;
             if ((this.entityRenderDispatcher.options == null || this.entityRenderDispatcher.options.getCameraType().isFirstPerson()) && player == Minecraft.getInstance().player) {
-                double d7 = 960.0D / (double)this.entityRenderDispatcher.options.fov().get().intValue();
+                double d7 = 960.0D / (double) this.entityRenderDispatcher.options.fov().get().intValue();
                 Vec3 vec3 = this.entityRenderDispatcher.camera.getNearPlane().getPointOnPlane((float) i * 0.525F, -0.1F);
                 vec3 = vec3.scale(d7);
                 vec3 = vec3.yRot(f1 * 0.5F);
@@ -102,7 +101,7 @@ public class RenderFeather extends EntityRenderer<FeatherEntity> {
 
     //fishing rod stuff
     private static float fraction(int p_114691_, int p_114692_) {
-        return (float)p_114691_ / (float)p_114692_;
+        return (float) p_114691_ / (float) p_114692_;
     }
 
     private static void stringVertex(float p_174119_, float p_174120_, float p_174121_, VertexConsumer p_174122_, PoseStack.Pose p_174123_, float p_174124_, float p_174125_) {
@@ -116,7 +115,7 @@ public class RenderFeather extends EntityRenderer<FeatherEntity> {
         f3 /= f6;
         f4 /= f6;
         f5 /= f6;
-        p_174122_.addVertex(p_174123_.pose(), f, f1, f2).setColor(0, 0, 0, 255).setNormal(p_174123_ , f3, f4, f5) ;
+        p_174122_.addVertex(p_174123_.pose(), f, f1, f2).setColor(0, 0, 0, 255).setNormal(p_174123_, f3, f4, f5);
     }
 
 }

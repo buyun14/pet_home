@@ -31,36 +31,40 @@ public class SinisterCarrotItem extends Item {
     public SinisterCarrotItem() {
         super(new Properties().rarity(Rarity.UNCOMMON).food((new FoodProperties.Builder()).nutrition(1).saturationModifier(0.3f).effect(new MobEffectInstance(MobEffects.WITHER, 100), 1.0F).build()));
     }
+
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("tooltips.pet_home.substitute_sinister_carrot.desc").withStyle(ChatFormatting.GREEN));
 
     }
+
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-        if(entity.getType() == EntityType.RABBIT && TameableUtils.isTamed(entity) && TameableUtils.isPetOf(player, entity) && EventHooks.canLivingConvert(entity, EntityType.RABBIT, (timer) -> {})){
-            if(entity instanceof Rabbit rabbit && rabbit.getVariant() != Rabbit.Variant.EVIL){
+        if (entity.getType() == EntityType.RABBIT && TameableUtils.isTamed(entity) && TameableUtils.isPetOf(player, entity) && EventHooks.canLivingConvert(entity, EntityType.RABBIT, (timer) -> {
+        })) {
+            if (entity instanceof Rabbit rabbit && rabbit.getVariant() != Rabbit.Variant.EVIL) {
                 player.swing(hand);
                 rabbit.playSound(SoundEvents.RABBIT_ATTACK, 0.8F, rabbit.getVoicePitch());
                 rabbit.playSound(SoundEvents.ZOMBIE_INFECT, 0.8F, rabbit.getVoicePitch());
                 rabbit.setVariant(Rabbit.Variant.EVIL);
-                if(!player.isCreative()){
+                if (!player.isCreative()) {
                     stack.shrink(1);
                 }
                 return InteractionResult.CONSUME;
             }
         }
-        if(entity.getType() == EntityType.ZOMBIE_HORSE && EventHooks.canLivingConvert(entity, EntityType.SKELETON_HORSE, (timer) -> {})){
+        if (entity.getType() == EntityType.ZOMBIE_HORSE && EventHooks.canLivingConvert(entity, EntityType.SKELETON_HORSE, (timer) -> {
+        })) {
             player.swing(hand);
-            ZombieHorse horse = (ZombieHorse)entity;
+            ZombieHorse horse = (ZombieHorse) entity;
             horse.playSound(SoundEvents.HORSE_DEATH, 0.8F, horse.getVoicePitch());
             horse.playSound(SoundEvents.ZOMBIE_INFECT, 0.8F, horse.getVoicePitch());
             CompoundTag horseExtras = new CompoundTag();
             horse.addAdditionalSaveData(horseExtras);
-            for(int i = 0; i < 6 + horse.getRandom().nextInt(5); i++){
+            for (int i = 0; i < 6 + horse.getRandom().nextInt(5); i++) {
                 horse.level().addParticle(ParticleTypes.SNEEZE, horse.getRandomX(1.0F), horse.getRandomY(), horse.getRandomZ(1.0F), 0F, 0F, 0F);
             }
             SkeletonHorse skeleton = EntityType.SKELETON_HORSE.create(horse.level());
-            if(horse.isLeashed()){
+            if (horse.isLeashed()) {
                 skeleton.setLeashedTo(horse.getLeashHolder(), true);
             }
             skeleton.moveTo(horse.getX(), horse.getY(), horse.getZ(), horse.getYRot(), horse.getXRot());
@@ -75,7 +79,7 @@ public class SinisterCarrotItem extends Item {
             EventHooks.onLivingConvert(horse, skeleton);
             player.level().addFreshEntity(skeleton);
             horse.discard();
-            if(!player.isCreative()){
+            if (!player.isCreative()) {
                 stack.shrink(1);
             }
             return InteractionResult.CONSUME;

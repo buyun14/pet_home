@@ -1,11 +1,7 @@
 package com.github.yzqdev.pet_home.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.SimpleAnimatedParticle;
-import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -36,7 +32,7 @@ public class ParticleBlight extends SimpleAnimatedParticle {
         this.zd *= 0.98D;
         this.setAlpha(1F - (this.age / (float) this.lifetime));
         this.oRoll = this.roll;
-        this.roll = (float) (Math.sin(age * 0.3F + initialRot) * ((float)Math.PI * 0.25F));
+        this.roll = (float) (Math.sin(age * 0.3F + initialRot) * ((float) Math.PI * 0.25F));
     }
 
     @Override

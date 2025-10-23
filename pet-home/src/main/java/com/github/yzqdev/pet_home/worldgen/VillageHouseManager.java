@@ -4,16 +4,15 @@ import com.github.yzqdev.pet_home.PetHomeConfig;
 import com.github.yzqdev.pet_home.PetHomeMod;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class VillageHouseManager {
     public static final List<ResourceLocation> VILLAGE_REPLACEMENT_POOLS = List.of(ResourceLocation.parse("minecraft:village/plains/houses"), ResourceLocation.parse("minecraft:village/desert/houses"), ResourceLocation.parse("minecraft:village/savanna/houses"), ResourceLocation.parse("minecraft:village/snowy/houses"), ResourceLocation.parse("minecraft:village/taiga/houses"));
@@ -22,13 +21,13 @@ public class VillageHouseManager {
 
     public static StructureTemplatePool addToPool(StructureTemplatePool pool, StructurePoolElement element, int weight) {
         if (weight > 0 && pool != null) {
-            ObjectArrayList<StructurePoolElement> templates = new ObjectArrayList(pool.templates);
+            ObjectArrayList<StructurePoolElement> templates = new ObjectArrayList<>(pool.templates);
             if (!templates.contains(element)) {
                 for (int i = 0; i < weight; ++i) {
                     templates.add(element);
                 }
 
-                List<Pair<StructurePoolElement, Integer>> rawTemplates = new ArrayList(pool.rawTemplates);
+                List<Pair<StructurePoolElement, Integer>> rawTemplates = new ArrayList<>(pool.rawTemplates);
                 rawTemplates.add(new Pair<>(element, weight));
                 pool.templates = templates;
                 pool.rawTemplates = rawTemplates;

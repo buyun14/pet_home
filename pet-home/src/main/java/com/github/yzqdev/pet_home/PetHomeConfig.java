@@ -64,39 +64,19 @@ public class PetHomeConfig {
     private static final ModConfigSpec.ConfigValue<List<? extends String>> CAN_HURT_ALL_ITEM = BUILDER.comment("can always hurt item").defineListAllowEmpty("can_hurt_all", List.of(), () -> BuiltInRegistries.ITEM.getKey(Items.EGG).toString(), PetHomeConfig::validateItemName);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> NO_PROTECTION_ENTITY = BUILDER.comment("can always hurt").defineListAllowEmpty("no_protection_entity", List.of(), () -> BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.ZOMBIE).toString(), PetHomeConfig::validateEntityTypesName);
     ;
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> OTHER_SHOULD_PROTECT_ENTITY = BUILDER.comment("other entities that can be protected").defineListAllowEmpty("other_should_protect_entity", List.of(), () -> BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.VILLAGER).toString(), PetHomeConfig::validateEntityTypesName);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> OTHER_SHOULD_PROTECT_ENTITY = BUILDER.comment("other entities that can be protected").defineListAllowEmpty("other_should_protect_entity", List.of(), () -> "", PetHomeConfig::validateEntityTypesName);
     ;
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> PLAYER_CANT_HURT_ENTITY = BUILDER.comment("entities player cant hurt").defineListAllowEmpty("player_cant_hurt_entity", List.of(), () -> BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.ZOMBIFIED_PIGLIN).toString(), PetHomeConfig::validateEntityTypesName);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> PLAYER_CANT_HURT_ENTITY = BUILDER.comment("entities player cant hurt").defineListAllowEmpty("player_cant_hurt_entity", List.of(), () -> "", PetHomeConfig::validateEntityTypesName);
     ;
     static final ModConfigSpec SPEC = BUILDER.build();
 
     private static boolean validateEntityTypesName(Object obj) {
-        boolean flag;
-        if (obj instanceof String itemName) {
-            if (BuiltInRegistries.ENTITY_TYPE.containsKey(ResourceLocation.parse(itemName))) {
-                flag = true;
-                return flag;
-            }
-        }
-
-        flag = false;
-        return flag;
+        return obj instanceof String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(ResourceLocation.parse(itemName));
     }
 
-    private static boolean validateItemName(Object obj) {
-        boolean flag;
-        if (obj instanceof String itemName) {
-            if (BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName))) {
-                flag = true;
-                return flag;
-            }
-        }
-
-        flag = false;
-        return flag;
+    private static boolean validateItemName(final Object obj) {
+        return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
     }
-
-
 
 
     public static double sinisterCarrotLootChance;
@@ -128,10 +108,11 @@ public class PetHomeConfig {
     public static Set<Item> canHurtAllItem;
     public static boolean mobcatcherOnlyTamableAnimal;
     public static Set<EntityType<?>> mobcatcherBlackList;
+
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
-        mobcatcherOnlyTamableAnimal=MOBCATCHER_ONLY_TAMABLE_ANIMAL.get();
-        mobcatcherBlackList=(MOBCATCHER_BLACKLIST.get()).stream().map((entityTypeName) -> BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(entityTypeName))).collect(Collectors.toSet());
+        mobcatcherOnlyTamableAnimal = MOBCATCHER_ONLY_TAMABLE_ANIMAL.get();
+        mobcatcherBlackList = (MOBCATCHER_BLACKLIST.get()).stream().map((entityTypeName) -> BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(entityTypeName))).collect(Collectors.toSet());
         respectTeamRules = RESPECT_TEAM_RULES.get();
         protectPetsFromOwner = PROTECT_PETS_FROM_OWNER.get();
         protectChildren = PROTECT_CHILDREN.get();
@@ -149,7 +130,7 @@ public class PetHomeConfig {
         shareLootChance = SHARE_LOOT_CHANCE.get();
         sonicBoomLootChance = SONIC_BOOM_LOOT_CHANCE.get();
         paralysisLootChance = PARALYSIS_LOOT_CHANCE.get();
-        toughLootChance=TOUGH_LOOT_CHANCE.get();
+        toughLootChance = TOUGH_LOOT_CHANCE.get();
         blazingProtectionLootChance = BLAZING_PROTECTION_LOOT_CHANCE.get();
         // convert the list of strings into a set of items
         noProtectionEntity = (NO_PROTECTION_ENTITY.get()).stream().map((entityTypeName) -> BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(entityTypeName))).collect(Collectors.toSet());

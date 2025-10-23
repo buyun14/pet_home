@@ -2,7 +2,6 @@ package com.github.yzqdev.pet_home.client.render;
 
 import com.github.yzqdev.pet_home.PetHomeMod;
 import com.github.yzqdev.pet_home.server.entity.PsychicWallEntity;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -14,7 +13,7 @@ import org.joml.Matrix4f;
 
 public class RenderPsychicWall extends EntityRenderer<PsychicWallEntity> {
 
-    private static final ResourceLocation TEXTURE =  ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "textures/psychic_wall_border.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PetHomeMod.MODID, "textures/psychic_wall_border.png");
 
     public RenderPsychicWall(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);
@@ -25,7 +24,7 @@ public class RenderPsychicWall extends EntityRenderer<PsychicWallEntity> {
         super.render(entity, yaw, partialTicks, poseStack, buffer, light);
         poseStack.pushPose();
         float growth = Math.min(10, entity.tickCount + partialTicks) / 10F;
-        if(entity.getLifespan() < 10){
+        if (entity.getLifespan() < 10) {
             growth = (entity.getLifespan() - partialTicks) / 10F;
         }
         float f = entity.getBlockWidth() * growth;
@@ -49,8 +48,8 @@ public class RenderPsychicWall extends EntityRenderer<PsychicWallEntity> {
         matrixStackIn.popPose();
     }
 
-    public void drawVertex(Matrix4f p_229039_1_,PoseStack.Pose p_229039_2_, VertexConsumer p_229039_3_, int p_229039_4_, int p_229039_5_, int p_229039_6_, float p_229039_7_, float p_229039_8_, int p_229039_9_, int p_229039_10_, int p_229039_11_, int p_229039_12_) {
-        p_229039_3_.addVertex(p_229039_1_, (float) p_229039_4_, (float) p_229039_5_, (float) p_229039_6_).setColor(255, 255, 255, 255).setUv(p_229039_7_, p_229039_8_).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(p_229039_12_,p_229039_12_).setNormal(p_229039_2_, (float) p_229039_9_, (float) p_229039_11_, (float) p_229039_10_) ;
+    public void drawVertex(Matrix4f p_229039_1_, PoseStack.Pose p_229039_2_, VertexConsumer p_229039_3_, int p_229039_4_, int p_229039_5_, int p_229039_6_, float p_229039_7_, float p_229039_8_, int p_229039_9_, int p_229039_10_, int p_229039_11_, int p_229039_12_) {
+        p_229039_3_.addVertex(p_229039_1_, (float) p_229039_4_, (float) p_229039_5_, (float) p_229039_6_).setColor(255, 255, 255, 255).setUv(p_229039_7_, p_229039_8_).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(p_229039_12_, p_229039_12_).setNormal(p_229039_2_, (float) p_229039_9_, (float) p_229039_11_, (float) p_229039_10_);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class RecallBallRender extends EntityRenderer<RecallBallEntity> {
     public void render(RecallBallEntity entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int light) {
         super.render(entity, yaw, partialTicks, poseStack, buffer, light);
         poseStack.pushPose();
-        poseStack.mulPose(new Quaternionf().rotateX(180F * ((float)Math.PI / 180F)));
+        poseStack.mulPose(new Quaternionf().rotateX(180F * ((float) Math.PI / 180F)));
         poseStack.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot())));
         poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot())));
 
@@ -36,7 +36,7 @@ public class RecallBallRender extends EntityRenderer<RecallBallEntity> {
         VertexConsumer vertexconsumer = buffer.getBuffer(this.recallBallModel.renderType(this.getTextureLocation(entity)));
         poseStack.translate(0, -1.65F, 0);
         this.recallBallModel.animateBall(entity, partialTicks);
-        this.recallBallModel.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1 );
+        this.recallBallModel.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1);
         poseStack.popPose();
 
     }
