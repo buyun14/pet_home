@@ -1,7 +1,9 @@
 package com.github.yzqdev.pet_home.mixin;
 
 import com.github.yzqdev.pet_home.ModConstants;
+import com.github.yzqdev.pet_home.datagen.ModEnchantments;
 import com.github.yzqdev.pet_home.util.IPetbedDataEntity;
+import com.github.yzqdev.pet_home.util.TameableUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({LivingEntity.class})
 public abstract class LivingEntityMixin extends Entity implements IPetbedDataEntity {
@@ -33,7 +36,17 @@ public abstract class LivingEntityMixin extends Entity implements IPetbedDataEnt
     private void citadel_registerData(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(PET_HOME_SAVED_DATA, new CompoundTag());
     }
-
+    @Inject(
+            method = {"getWaterSlowDown()F"},
+            remap = true,
+            at = @At(value = "TAIL"),
+            cancellable = true
+    )
+    private void di_getWaterSlowdown(CallbackInfoReturnable<Float> cir) {
+        if(TameableUtils.isTamed(this) && isLandAndSea()){
+            cir.setReturnValue(0.98F);
+        }
+    }
     @Inject(
             at = {@At("TAIL")},
             remap = true,
@@ -58,7 +71,9 @@ public abstract class LivingEntityMixin extends Entity implements IPetbedDataEnt
         }
 
     }
-
+    private boolean isLandAndSea(){
+        return TameableUtils.hasEnchant(((LivingEntity) (Entity)this), ModEnchantments.AMPHIBIOUS);
+    }
     @Override
     public CompoundTag getCitadelEntityData() {
         return (CompoundTag) this.entityData.get(PET_HOME_SAVED_DATA);

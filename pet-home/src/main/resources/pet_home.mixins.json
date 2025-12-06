@@ -4,15 +4,15 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
-
   ],
   "mixins": [
-    "LivingEntityMixin",
+    "AgeableMobMixin",
     "EntityMaidMixin",
-    "MobMixin",
     "EntityMixin",
     "FishingHookMixin",
-    "AgeableMobMixin"
+    "FloatGoalMixin",
+    "LivingEntityMixin",
+    "MobMixin"
   ],
   "refmap": "pet_home.refmap.json",
   "injectors": {

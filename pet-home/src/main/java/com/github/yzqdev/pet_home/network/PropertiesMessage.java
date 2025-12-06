@@ -25,7 +25,7 @@ public record PropertiesMessage(String propertyID, CompoundTag compound, int ent
 
     public void write(FriendlyByteBuf pBuffer) {
         pBuffer.writeUtf(propertyID());
-        pBuffer.writeNbt(compound());
+        pBuffer.writeNbt(compound().copy());
         pBuffer.writeInt(entityID());
     }
 

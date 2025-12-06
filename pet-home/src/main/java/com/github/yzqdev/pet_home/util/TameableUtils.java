@@ -256,10 +256,10 @@ public class TameableUtils {
     private static void sync(LivingEntity entity, CompoundTag tag) {
         CitadelEntityData.setCitadelTag(entity, tag);
         if (!entity.level().isClientSide) {
-            PacketDistributor.sendToAllPlayers(new PropertiesMessage(ModConstants.entityDataTagUpdate, tag, entity.getId()));
+            PacketDistributor.sendToAllPlayers(new PropertiesMessage(ModConstants.entityDataTagUpdate, tag.copy(), entity.getId()));
 //            Citadel.sendMSGToAll(new PropertiesMessage("CitadelTagUpdate", tag, enchanted.getId()));
         } else {
-            PacketDistributor.sendToServer(new PropertiesMessage(ModConstants.entityDataTagUpdate, tag, entity.getId()));
+            PacketDistributor.sendToServer(new PropertiesMessage(ModConstants.entityDataTagUpdate, tag.copy(), entity.getId()));
 //            Citadel.sendMSGToServer(new PropertiesMessage("CitadelTagUpdate", tag, enchanted.getId()));
         }
     }
