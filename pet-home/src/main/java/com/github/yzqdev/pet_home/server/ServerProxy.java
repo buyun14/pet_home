@@ -672,7 +672,7 @@ public class ServerProxy {
 
             if (TameableUtils.hasEnchant(pet, ModEnchantments.NIGHT_VISION) && TameableUtils.isTamed(pet)) {
                 var owner = TameableUtils.getOwnerOf(pet);
-                if (owner.distanceToSqr(pet) < 10 && owner instanceof Player petOwner) {
+                if (owner != null && owner.distanceToSqr(pet) < 10 && owner instanceof Player petOwner) {
                     if (!petOwner.hasEffect(MobEffects.NIGHT_VISION) && pet.tickCount % 40 == 0) {
                         petOwner.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20 * 60 * 5));
                     }
