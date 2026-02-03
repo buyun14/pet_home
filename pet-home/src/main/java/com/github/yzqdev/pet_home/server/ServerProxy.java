@@ -614,6 +614,10 @@ public class ServerProxy {
     }
 
     public static void mobTick(EntityTickEvent.Pre event, LivingEntity attacker) {
+        // 仅服务端执行：涉及 ServerLevel（粒子、目标选择）等逻辑，客户端 level 为 ClientLevel 会 ClassCastException
+        if (attacker.level().isClientSide()) {
+            return;
+        }
         List<Monster> genericMobs = attacker.level().getEntitiesOfClass(Monster.class, LivingUtils.getBoundingBoxAroundEntity(attacker, (double) 10.0F));
         Random random = new Random();
         if (attacker.hasEffect(ModEffects.DRUNK) && attacker instanceof Monster) {
